@@ -14,9 +14,12 @@
 
 test.*
 .vscode*
+member*
+faces_LBPH*
 
 # Ignore `bin` dir
 bin/
+images/
 */bin/*
 
 # Unignore all `.exe` in `bin` dir
