@@ -32,3 +32,4 @@ if __name__ == "__main__":
     ui.setupUi(Widget)
     Widget.show()
     sys.exit(app.exec_())
+1
