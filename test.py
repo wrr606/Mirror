@@ -25,16 +25,10 @@ class Ui_Widget(object):
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    app = QApplication([])
-    widget = Widget()
-    widget.show()
-=======
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Widget = QtWidgets.QWidget()
     ui = Ui_Widget()
     ui.setupUi(Widget)
     Widget.show()
->>>>>>> c5f47f9 (test.py)
     sys.exit(app.exec_())
