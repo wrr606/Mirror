@@ -1,0 +1,23 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+!LICENSE
+
+*.class
+*.exe
+
+test.*
+.vscode*
+
+# Ignore `bin` dir
+bin/
+*/bin/*
+
+# Unignore all `.exe` in `bin` dir
+!*/bin/*.exe
