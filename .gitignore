@@ -12,7 +12,6 @@
 *.class
 *.exe
 
-test.*
 .vscode*
 
 # Ignore `bin` dir
