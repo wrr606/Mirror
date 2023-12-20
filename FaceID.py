@@ -63,9 +63,13 @@ def sign_up(name:str)->bool:
 
 #辨識攝影機前的人是誰，會回傳辨識出來的人名，否則回傳 False
 def identify()->str:
+    if not os.path.exists("images"):
+        os.makedirs("images")
     model=cv2.face.LBPHFaceRecognizer_create()
     model.read("faces_LBPH.yml")
     f=open("member.txt",'r')
+    if not f.read():
+        return False
     names=f.readline().split(',')
 
     face_cascade=cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt2.xml")
