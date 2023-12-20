@@ -16,7 +16,7 @@ test.*
 .vscode*
 member*
 faces_LBPH*
-
+__pycache__/
 # Ignore `bin` dir
 bin/
 images/

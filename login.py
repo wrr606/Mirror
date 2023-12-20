@@ -137,6 +137,7 @@ class Ui_Widget(object):
         if not self.video_thread or not self.video_thread.is_alive():
             self.video_thread = threading.Thread(target=self.opencv)
             self.video_thread.start()
+        #判斷是不是本人    
         ID=identify()
         if bool(ID)==False :
           print("彈窗錯誤")#liu
@@ -162,7 +163,7 @@ class Ui_Widget(object):
         if not self.video_thread or not self.video_thread.is_alive():
             self.video_thread = threading.Thread(target=self.opencv)
             self.video_thread.start()
-      
+    #check是打勾按鈕
     def check(self):
         if sign_up(self.lineEdit.text()) == False :
             print("彈窗錯誤")#liu
