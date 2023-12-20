@@ -89,6 +89,7 @@ class Ui_Widget(object):
         self.label_4.setObjectName("label_4")
         self.Tick = QtWidgets.QPushButton(self.frame)
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 60, 60))
+        self.Tick.clicked.connect(self.check)       
         self.Tick.setStyleSheet(
             "border-radius: 12px;\n"
             "background-repeat: no-repeat;"
@@ -132,6 +133,7 @@ class Ui_Widget(object):
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
         self.ocv = True
+        print(identify())
 
         # 检查线程是否已经启动
         if not self.video_thread or not self.video_thread.is_alive():
@@ -159,9 +161,8 @@ class Ui_Widget(object):
             self.video_thread.start()
       
     def check(self):
-        sign_up(self.lineEdit.text())
-        
-
+        if sign_up() == False :
+            
 
 if __name__ == "__main__":
     import sys
