@@ -15,6 +15,8 @@ import sys, cv2, threading
 
 
 class Ui_Widget(object):
+    def __init__(self):
+        self.video_thread = None
     #不用理
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
@@ -130,7 +132,11 @@ class Ui_Widget(object):
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.pushButton.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
         self.ocv = True
-        video.start()
+        
+        # 检查线程是否已经启动
+        if not self.video_thread or not self.video_thread.is_alive():
+            self.video_thread = threading.Thread(target=self.opencv)
+            self.video_thread.start()
 
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 45, 512, 512))
@@ -148,7 +154,10 @@ class Ui_Widget(object):
         self.pushButton.setGeometry(QtCore.QRect(1160, 140, 71, 61))
         
         self.ocv = True
-        video.start()
+        # 检查线程是否已经启动
+        if not self.video_thread or not self.video_thread.is_alive():
+            self.video_thread = threading.Thread(target=self.opencv)
+            self.video_thread.start()
         
 
 
