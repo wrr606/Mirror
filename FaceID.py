@@ -68,7 +68,7 @@ def identify()->str:
     model=cv2.face.LBPHFaceRecognizer_create()
     model.read("faces_LBPH.yml")
     f=open("member.txt",'r')
-    if not f.read():
+    if f.read():
         return False
     names=f.readline().split(',')
 
