@@ -10,10 +10,12 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import *
+from FaceID import sign_up,identify
 import sys, cv2, threading
 
 
 class Ui_Widget(object):
+    #不用理
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
         Widget.resize(1272, 600)
@@ -102,7 +104,8 @@ class Ui_Widget(object):
         self.label_2.setText(_translate("Widget", "新增用戶"))
         self.label_3.setText(_translate("Widget", "首頁"))
         self.label_4.setText(_translate("Widget", "請輸入你用戶名稱:"))
-
+#------------以上都是介面---------
+        #打開攝像頭
     def opencv(self):
         cap = cv2.VideoCapture(0)
         if not cap.isOpened():
@@ -119,7 +122,7 @@ class Ui_Widget(object):
             bytesPerline = channel * width
             qimg = QImage(frame, width, height, bytesPerline, QImage.Format_RGB888)
             self.camera.setPixmap(QPixmap.fromImage(qimg)) 
-
+            #用戶登入
     def userlogin(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
         self.camera.setGeometry(QtCore.QRect(370, 45, 512, 512))
