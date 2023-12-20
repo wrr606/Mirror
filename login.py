@@ -87,14 +87,14 @@ class Ui_Widget(object):
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.label_4.setStyleSheet("font-size:25px;")
         self.label_4.setObjectName("label_4")
-        self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setGeometry(QtCore.QRect(1160, 1000, 60, 60))
-        self.pushButton.setStyleSheet(
+        self.Tick = QtWidgets.QPushButton(self.frame)
+        self.Tick.setGeometry(QtCore.QRect(1160, 1000, 60, 60))
+        self.Tick.setStyleSheet(
             "border-radius: 12px;\n"
             "background-repeat: no-repeat;"
             "background-image:url(\"image/check.png\")"
         )
-        self.pushButton.setObjectName("pushButton")
+        self.Tick.setObjectName("Tick")
 
         self.retranslateUi(Widget)
         QtCore.QMetaObject.connectSlotsByName(Widget)
@@ -130,9 +130,9 @@ class Ui_Widget(object):
         self.camera.setGeometry(QtCore.QRect(370, 45, 512, 512))
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
-        self.pushButton.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
+        self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
         self.ocv = True
-        
+
         # 检查线程是否已经启动
         if not self.video_thread or not self.video_thread.is_alive():
             self.video_thread = threading.Thread(target=self.opencv)
@@ -143,7 +143,7 @@ class Ui_Widget(object):
         self.camera.setGeometry(QtCore.QRect(370, 1000, 512, 512))
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
-        self.pushButton.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
+        self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
         self.ocv = False
 
     def add(self):
@@ -151,13 +151,15 @@ class Ui_Widget(object):
         self.camera.setGeometry(QtCore.QRect(370, 45, 512, 512))
         self.lineEdit.setGeometry(QtCore.QRect(930, 140, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 90, 231, 31))
-        self.pushButton.setGeometry(QtCore.QRect(1160, 140, 71, 61))
-        
+        self.Tick.setGeometry(QtCore.QRect(1160, 140, 71, 61))
         self.ocv = True
         # 检查线程是否已经启动
         if not self.video_thread or not self.video_thread.is_alive():
             self.video_thread = threading.Thread(target=self.opencv)
             self.video_thread.start()
+      
+    def check(self):
+        sign_up(self.lineEdit.text())
         
 
 
