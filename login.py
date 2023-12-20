@@ -161,8 +161,10 @@ class Ui_Widget(object):
             self.video_thread.start()
       
     def check(self):
-        if sign_up() == False :
-            
+        if sign_up(self.lineEdit.text()) == False :
+            print("彈窗錯誤")#liu
+        else :
+            print("進入主畫面") #liu
 
 if __name__ == "__main__":
     import sys
