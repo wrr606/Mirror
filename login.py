@@ -140,9 +140,9 @@ class Ui_Widget(object):
         #判斷是不是本人    
         ID=identify()
         if bool(ID)==False :
-          print("彈窗錯誤")#liu
+            print("彈窗錯誤")#liu
         else :
-          print(f"歡迎{ID}進入")#liu
+            print(f"歡迎{ID}進入")#liu
 
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 45, 512, 512))
