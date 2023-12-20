@@ -133,12 +133,15 @@ class Ui_Widget(object):
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
         self.ocv = True
-        print(identify())
-
         # 检查线程是否已经启动
         if not self.video_thread or not self.video_thread.is_alive():
             self.video_thread = threading.Thread(target=self.opencv)
             self.video_thread.start()
+        ID=identify()
+        if bool(ID)==False :
+          print("彈窗錯誤")#liu
+        else :
+          print(f"歡迎{ID}進入")#liu
 
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 45, 512, 512))
