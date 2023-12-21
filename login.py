@@ -140,7 +140,7 @@ class Ui_Widget(object):
         #判斷是不是本人    
         ID=identify()
         if bool(ID)==False :
-            print("彈窗錯誤")#liu
+            print("登入錯誤")#liu
         else :
             print(f"歡迎{ID}進入")#liu
 
@@ -166,7 +166,7 @@ class Ui_Widget(object):
     #check是打勾按鈕
     def check(self):
         if sign_up(self.lineEdit.text()) == False :
-            print("彈窗錯誤")#liu
+            print("註冊錯誤")#liu
         else :
             print("進入主畫面") #liu
 
@@ -176,7 +176,6 @@ if __name__ == "__main__":
     Widget = QtWidgets.QWidget()
     ui = Ui_Widget()
     ui.setupUi(Widget)
-    video = threading.Thread(target=ui.opencv)
-    
+    video = threading.Thread(target=ui.opencv)    
     Widget.show()
     sys.exit(app.exec_())
