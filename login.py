@@ -22,7 +22,7 @@ class Ui_Widget(object):
         Widget.setObjectName("Widget")
         Widget.resize(1272, 600)
         self.frame = QtWidgets.QFrame(Widget)
-        self.frame.setGeometry(QtCore.QRect(0, 0, 1272, 600))
+        self.frame.setGeometry(QtCore.QRect(0, 0, 1272, 601))
         self.frame.setStyleSheet("background-color:white;")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
