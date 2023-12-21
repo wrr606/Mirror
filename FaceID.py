@@ -65,6 +65,8 @@ def sign_up(name:str)->bool:
 def identify()->str:
     if not os.path.exists("images"):
         os.makedirs("images")
+    if not os.path.exists("faces_LBPH.yml") or not os.path.exists("member.txt"):
+        return False
     model=cv2.face.LBPHFaceRecognizer_create()
     model.read("faces_LBPH.yml")
     f=open("member.txt",'r')
