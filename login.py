@@ -125,6 +125,7 @@ class Ui_Widget(object):
             bytesPerline = channel * width
             qimg = QImage(frame, width, height, bytesPerline, QImage.Format_RGB888)
             self.camera.setPixmap(QPixmap.fromImage(qimg)) 
+        cap.release()    
             #用戶登入
     def userlogin(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
@@ -140,7 +141,8 @@ class Ui_Widget(object):
         #判斷是不是本人    
         ID=identify()
         if bool(ID)==False :
-            print("登入錯誤")#liu
+            #顯示彈窗
+            self.err()
         else :
             print(f"歡迎{ID}進入")#liu
 
@@ -163,12 +165,20 @@ class Ui_Widget(object):
         if not self.video_thread or not self.video_thread.is_alive():
             self.video_thread = threading.Thread(target=self.opencv)
             self.video_thread.start()
+
     #check是打勾按鈕
     def check(self):
         if sign_up(self.lineEdit.text()) == False :
-            print("註冊錯誤")#liu
+            #顯示彈窗
+            self.err()
         else :
             print("進入主畫面") #liu
+    #顯示彈窗
+    def err(self):
+        mbox = QtWidgets.QMessageBox(self.frame)
+        mbox.setText("請重新操作")
+        mbox.setIcon(2)
+        mbox.exec()
 
 if __name__ == "__main__":
     import sys
@@ -176,6 +186,6 @@ if __name__ == "__main__":
     Widget = QtWidgets.QWidget()
     ui = Ui_Widget()
     ui.setupUi(Widget)
-    video = threading.Thread(target=ui.opencv)    
+    video = threading.Thread(target=ui.opencv)  
     Widget.show()
     sys.exit(app.exec_())
