@@ -16,7 +16,16 @@ class Weather:
                     self.w[city][area]=(temp,state)
             else:
                 self.w[city]={area:(temp,state)}
-
+    
+    #傳入縣市名和鄉鎮名，會回傳一個陣列，為 [溫度,當前天氣狀態]
     def query(self,CountyName:str,TownName:str) -> tuple:
         print("query:",self.w[CountyName][TownName])
         return self.w[CountyName][TownName]
+
+"""
+使用方法
+
+創建一個物件 x=Weather()
+
+使用查詢功能 x.query()
+"""
