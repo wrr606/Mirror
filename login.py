@@ -254,7 +254,6 @@ class Ui_Widget(object):
         self.label_3.setText(_translate("Widget", "首頁"))
         self.label_4.setText(_translate("Widget", "請輸入你用戶名稱:"))
         self.username.setText(_translate("Widget", "使用者名稱"))
-        self.volume.setText(_translate("Widget", "音量"))
         self.cpuname.setText(_translate("Widget", "CPU使用率(%):"))
         self.gpuname.setText(_translate("Widget", "GPU使用率(%):"))
         self.listdel.setText(_translate("Widget", "刪除"))
