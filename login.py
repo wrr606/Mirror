@@ -127,7 +127,6 @@ class Ui_Widget(object):
             "background-image:url(\"image/volume.png\")"
         )
         self.volume.setObjectName("volume")
-        #控制音量slider位置
         self.volumeslider = QtWidgets.QSlider(self.control)
         self.volumeslider.setGeometry(QtCore.QRect(80, 30, 431, 21))
         self.volumeslider.setOrientation(QtCore.Qt.Horizontal)
