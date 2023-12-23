@@ -45,4 +45,6 @@ class Weather:
 創建一個物件 x=Weather()
 
 使用查詢功能 x.query()
+
+更新當前天氣 x.update()
 """
