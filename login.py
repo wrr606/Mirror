@@ -6,6 +6,8 @@ import psutil
 import GPUtil
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from Volume import set_volume
+from Weather import Weather
 import json
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
@@ -125,10 +127,14 @@ class Ui_Widget(object):
             "background-image:url(\"image/volume.png\")"
         )
         self.volume.setObjectName("volume")
+        #控制音量slider位置
         self.volumeslider = QtWidgets.QSlider(self.control)
         self.volumeslider.setGeometry(QtCore.QRect(80, 30, 431, 21))
         self.volumeslider.setOrientation(QtCore.Qt.Horizontal)
         self.volumeslider.setObjectName("volumeslider")
+        self.volumeslider.setMinimum(0)
+        self.volumeslider.setMaximum(100)
+        self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
         self.cpu.setGeometry(QtCore.QRect(20, 104, 400, 240))
@@ -371,6 +377,9 @@ class Ui_Widget(object):
                 self.township.removeItem(0)
             firsttext=self.city.currentText()
             self.township.addItems(city[firsttext])    
+    # slider 改變value
+    def slider(self,value) :
+        set_volume(value/100)
 
 if __name__ == "__main__":
     import sys
