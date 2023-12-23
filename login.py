@@ -133,6 +133,7 @@ class Ui_Widget(object):
         self.volumeslider.setObjectName("volumeslider")
         self.volumeslider.setMinimum(0)
         self.volumeslider.setMaximum(100)
+        self.volumeslider.setValue(50)
         self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
