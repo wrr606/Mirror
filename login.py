@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from FaceID import sign_up,identify
+from PyQt5.QtGui import *
 import sys, cv2, threading
 from PyQt5.QtCore import QTimer
 import psutil
@@ -340,7 +341,7 @@ class Ui_Widget(object):
             print("進入主畫面") #liu
     #顯示彈窗
     def err(self):
-        mbox = QtWidgets.QMessageBox(self.frame)
+        mbox = QtWidgets.QMessageBox(self.loginpage)
         mbox.setText("請重新操作")
         mbox.setIcon(2)
         mbox.exec()
