@@ -44,6 +44,7 @@ class Ui_Widget(object):
         self.gpu_thread = GPUThread()
         self.gpu_thread.gpu_updated.connect(self.update_gpu_usage)
         self.gpu_thread.start()
+        self.city_weather=Weather()
     #不用理
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
@@ -400,17 +401,15 @@ class Ui_Widget(object):
             firsttext=self.city.currentText()
             self.township.addItems(city[firsttext])
 
-        
     def changetext(self):
         if join==1:
-            x=Weather()
-            result=x.query(firsttext,self.township.currentText())
+            result=self.city_weather.query(firsttext,self.township.currentText())
             temperature_value, weather_description = result
             if temperature_value=="-99":
                 self.temperature.setText("數值不正常")
             else :
                 self.temperature.setText(temperature_value)
-                
+            
             if weather_description=="-99":
                 weather_description=="多雲"
                 self.status.setText("多雲")
