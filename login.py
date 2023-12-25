@@ -380,7 +380,17 @@ class Ui_Widget(object):
     # slider 改變value
     def slider(self,value) :
         set_volume(value/100)
+        if value==0:
+            self.volume.setStyleSheet(
+            "background-image:url(\"image/volume-slash.png\")"
+        )
+        else:
+            self.volume.setStyleSheet(
+            "background-image:url(\"image/volume.png\")"
+        )
 
+
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
