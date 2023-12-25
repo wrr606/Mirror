@@ -25,7 +25,7 @@ class Ui_Widget(object):
         #登入畫面
 #######################################################################
         self.loginpage = QtWidgets.QFrame(Widget)
-        self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1271, 601))
+        self.loginpage.setGeometry(QtCore.QRect(0, 0, 1271, 601))
         self.loginpage.setStyleSheet("background-color:white;")
         self.loginpage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.loginpage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -102,7 +102,7 @@ class Ui_Widget(object):
 #######################################################################   
         #進入後畫面 
         self.homepage = QtWidgets.QFrame(Widget)
-        self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 600))
+        self.homepage.setGeometry(QtCore.QRect(0, 1000, 1272, 600))
         self.homepage.setStyleSheet("")
         self.homepage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.homepage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -266,7 +266,6 @@ class Ui_Widget(object):
         self.listdel.setText(_translate("Widget", "刪除"))
         self.listadd.setText(_translate("Widget", "新增"))
         self.temperature.setText(_translate("Widget", "溫度"))
-        self.weatherimage.setText(_translate("Widget", "TextLabel"))
         self.facecamera.setText(_translate("Widget", "TextLabel"))
         self.gpt.setText(_translate("Widget", "CHATGPT"))
         self.status.setText(_translate("Widget", "TextLabel"))
@@ -308,7 +307,9 @@ class Ui_Widget(object):
             #顯示彈窗
             self.err()
         else :
-            print(f"歡迎{ID}進入")#liu
+            self.username.setText(f"歡迎{ID}進入")
+            self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 600))
+            self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 600))
 
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 45, 512, 512))
@@ -397,6 +398,24 @@ class Ui_Widget(object):
             print(firsttext,self.township.currentText())
             print("temperature Value:", temperature_value)
             print("Weather Description:", weather_description)  
+            if weather_description=="多雲":
+                self.weatherimage.setStyleSheet(
+                    "background-image:url(\"image/weather/多雲.png\")"
+            )
+            if weather_description=="陰":
+                self.weatherimage.setStyleSheet(
+                    "background-image:url(\"image/weather/陰.png\")"
+            )
+            if weather_description=="雨":
+                self.weatherimage.setStyleSheet(
+                    "background-image:url(\"image/weather/雨.png\")"
+            )
+            if weather_description=="晴":
+                self.weatherimage.setStyleSheet(
+                    "background-image:url(\"image/weather/晴.png\")"
+            )
+            
+
 
 
     # slider 改變value
