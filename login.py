@@ -12,7 +12,7 @@ import json
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
 firsttext="金門縣"
-join=0
+join=1
 class Ui_Widget(object):
     def __init__(self):
         self.video_thread = None
@@ -379,14 +379,24 @@ class Ui_Widget(object):
                 self.township.removeItem(0)
             join=1
             firsttext=self.city.currentText()
-            self.township.addItems(city[firsttext])    
+            self.township.addItems(city[firsttext])
+        x=Weather()
+        result=x.query(firsttext,self.township.currentText())
+        temperature_value, weather_description = result
+        self.temperature.setText(temperature_value)
+        self.status.setText(weather_description)
+
         
     def changetext(self):
         if join==1:
             x=Weather()
-            x.query(firsttext,self.township.currentText())
+            result=x.query(firsttext,self.township.currentText())
+            temperature_value, weather_description = result
+            self.temperature.setText(temperature_value)
+            self.status.setText(weather_description)
             print(firsttext,self.township.currentText())
-            print(x.query)
+            print("temperature Value:", temperature_value)
+            print("Weather Description:", weather_description)  
 
 
     # slider 改變value
