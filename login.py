@@ -377,6 +377,10 @@ class Ui_Widget(object):
                 self.township.removeItem(0)
             firsttext=self.city.currentText()
             self.township.addItems(city[firsttext])    
+        x=Weather()
+        x.query(firsttext,self.township.currentText())
+        print(firsttext,self.township.currentText())
+        print(x.query)
     # slider 改變value
     def slider(self,value) :
         set_volume(value/100)
