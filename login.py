@@ -2,7 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from FaceID import sign_up,identify
 from PyQt5.QtGui import *
 import sys, cv2, threading
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, Qt, QThread, pyqtSignal
+
 import psutil
 import GPUtil
 from matplotlib import pyplot as plt
@@ -14,11 +15,35 @@ with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
 firsttext="金門縣"
 join=1
+
+class CPUThread(QThread):
+    cpu_updated = pyqtSignal(float)
+    def run(self):
+        while True:
+            cpu_usage = min(psutil.cpu_percent(interval=0.1), 100)
+            self.cpu_updated.emit(cpu_usage)
+            self.sleep(1)
+
+class GPUThread(QThread):
+    gpu_updated = pyqtSignal(float)
+    def run(self):
+        while True:
+            gpu = GPUtil.getGPUs()[0]
+            gpu_usage = min(gpu.load * 100, 100)
+            self.gpu_updated.emit(gpu_usage)
+            self.sleep(1)
+
 class Ui_Widget(object):
     def __init__(self):
         self.video_thread = None
         plt.rcParams["font.sans-serif"] = "Microsoft JhengHei"
         plt.rcParams["axes.unicode_minus"] = False
+        self.cpu_thread = CPUThread()
+        self.cpu_thread.cpu_updated.connect(self.update_cpu_usage)
+        self.cpu_thread.start()
+        self.gpu_thread = GPUThread()
+        self.gpu_thread.gpu_updated.connect(self.update_gpu_usage)
+        self.gpu_thread.start()
     #不用理
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
@@ -146,9 +171,6 @@ class Ui_Widget(object):
         self.canvas_cpu = FigureCanvas(self.figure_cpu)
         self.canvas_cpu.setFixedSize(400, 200)
         self.cpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_cpu_usage)
-        self.timer.start(100)  # 更新間隔：1000 毫秒（1 秒）
         self.graphicsView_cpu = QtWidgets.QGraphicsView(self.cpu)
         self.graphicsView_cpu.setGeometry(QtCore.QRect(0, 39, 400, 200))
         self.graphicsView_cpu.setObjectName("graphicsView_cpu")
@@ -170,8 +192,6 @@ class Ui_Widget(object):
         self.canvas_gpu = FigureCanvas(self.figure_gpu)
         self.canvas_gpu.setFixedSize(400, 200)
         self.gpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
-        self.timer.timeout.connect(self.update_gpu_usage)
-        self.timer.start(1000)
         self.graphicsView_gpu = QtWidgets.QGraphicsView(self.gpu)
         self.graphicsView_gpu.setGeometry(QtCore.QRect(0, 40, 400, 201))
         self.graphicsView_gpu.setObjectName("graphicsView_gpu")
@@ -347,25 +367,22 @@ class Ui_Widget(object):
         mbox.exec()
 
     #顯示CPU
-    def update_cpu_usage(self):
-        cpu_usage = min(psutil.cpu_percent(interval=0.1), 100)
+    def update_cpu_usage(self,cpu_usage):
         self.cpu_usage_data.append(cpu_usage)
         if len(self.cpu_usage_data) > 50:
             self.cpu_usage_data.pop(0)
         self.ax_cpu.clear()
-        self.ax_cpu.bar(range(len(self.cpu_usage_data)), self.cpu_usage_data, color='blue')
+        self.ax_cpu.plot(self.cpu_usage_data, color='blue')
         self.ax_cpu.set_ylim([0,100])
         self.ax_cpu.set_xticks([])
         self.canvas_cpu.draw()
     #顯示GPU
-    def update_gpu_usage(self):
-        gpu = GPUtil.getGPUs()[0]
-        gpu_usage = min(gpu.load * 100, 100)
+    def update_gpu_usage(self,gpu_usage):
         self.gpu_usage_data.append(gpu_usage)
         if len(self.gpu_usage_data) > 50:
             self.gpu_usage_data.pop(0)
         self.ax_gpu.clear()
-        self.ax_gpu.bar(range(len(self.gpu_usage_data)), self.gpu_usage_data, color='green')
+        self.ax_gpu.plot(self.gpu_usage_data, color='blue')
         self.ax_gpu.set_ylim([0, 100])
         self.ax_gpu.set_xticks([])
         self.canvas_gpu.draw()
