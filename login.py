@@ -12,7 +12,7 @@ import json
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
 firsttext="金門縣"
-
+join=0
 class Ui_Widget(object):
     def __init__(self):
         self.video_thread = None
@@ -206,7 +206,7 @@ class Ui_Widget(object):
         self.township.setGeometry(QtCore.QRect(140, 20, 101, 22))
         self.township.setObjectName("township")
         self.township.addItems(["金沙鎮","金寧鄉","烏坵鄉"])
-        self.township.currentIndexChanged.connect(self.changetown)
+        self.township.currentIndexChanged.connect(self.changetext)
         self.temperature = QtWidgets.QLabel(self.weather)
         self.temperature.setGeometry(QtCore.QRect(20, 60, 81, 61))
         self.temperature.setStyleSheet("background-color:white;")
@@ -369,19 +369,26 @@ class Ui_Widget(object):
         self.canvas_gpu.draw()
     #切換鄉鎮
     def changetown(self):
-        global firsttext
+        global firsttext,join
+        join=0 
         if (self.city.currentText()==firsttext):
             return
         else:
             length=len(self.township) 
             for i in range(0,length):
                 self.township.removeItem(0)
+            join=1
             firsttext=self.city.currentText()
             self.township.addItems(city[firsttext])    
-        x=Weather()
-        x.query(firsttext,self.township.currentText())
-        print(firsttext,self.township.currentText())
-        print(x.query)
+        
+    def changetext(self):
+        if join==1:
+            x=Weather()
+            x.query(firsttext,self.township.currentText())
+            print(firsttext,self.township.currentText())
+            print(x.query)
+
+
     # slider 改變value
     def slider(self,value) :
         set_volume(value/100)
