@@ -206,6 +206,7 @@ class Ui_Widget(object):
         self.township.setGeometry(QtCore.QRect(140, 20, 101, 22))
         self.township.setObjectName("township")
         self.township.addItems(["金沙鎮","金寧鄉","烏坵鄉"])
+        self.township.currentIndexChanged.connect(self.changetown)
         self.temperature = QtWidgets.QLabel(self.weather)
         self.temperature.setGeometry(QtCore.QRect(20, 60, 81, 61))
         self.temperature.setStyleSheet("background-color:white;")
