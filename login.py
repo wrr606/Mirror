@@ -382,11 +382,6 @@ class Ui_Widget(object):
             join=1
             firsttext=self.city.currentText()
             self.township.addItems(city[firsttext])
-        x=Weather()
-        result=x.query(firsttext,self.township.currentText())
-        temperature_value, weather_description = result
-        self.temperature.setText(temperature_value)
-        self.status.setText(weather_description)
 
         
     def changetext(self):
@@ -394,8 +389,16 @@ class Ui_Widget(object):
             x=Weather()
             result=x.query(firsttext,self.township.currentText())
             temperature_value, weather_description = result
-            self.temperature.setText(temperature_value)
-            self.status.setText(weather_description)
+            if temperature_value=="-99":
+                self.temperature.setText("數值不正常")
+            else :
+                self.temperature.setText(temperature_value)
+                
+            if weather_description=="-99":
+                weather_description=="多雲"
+                self.status.setText("多雲")
+            else :
+                self.status.setText(weather_description)
             print(firsttext,self.township.currentText())
             print("temperature Value:", temperature_value)
             print("Weather Description:", weather_description)  
