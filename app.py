@@ -52,7 +52,7 @@ class Ui_Widget(object):
         #登入畫面
 #######################################################################
         self.loginpage = QtWidgets.QFrame(Widget)
-        self.loginpage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
+        self.loginpage.setGeometry(QtCore.QRect(0, 2000, 1272, 721))
         self.loginpage.setStyleSheet("background-color:white;")
         self.loginpage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.loginpage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -129,7 +129,7 @@ class Ui_Widget(object):
 #######################################################################   
         #進入後畫面 
         self.homepage = QtWidgets.QFrame(Widget)
-        self.homepage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
+        self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
         self.homepage.setStyleSheet("")
         self.homepage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.homepage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -154,8 +154,15 @@ class Ui_Widget(object):
             "background-image:url(\"image/volume.png\")"
         )
         self.volume.setObjectName("volume")
+        self.volume_text = QtWidgets.QLabel(self.control)
+        self.volume_text.setGeometry(QtCore.QRect(350, 10, 50, 50))
+        self.volume_text.setStyleSheet("font-size:25px;")
+        self.volume_text.setObjectName("volume_text")
+        self.volume_text.setStyleSheet(
+            "font-size:30px;"
+        )
         self.volumeslider = QtWidgets.QSlider(self.control)
-        self.volumeslider.setGeometry(QtCore.QRect(80, 30, 311, 21))
+        self.volumeslider.setGeometry(QtCore.QRect(80, 30, 250, 21))
         self.volumeslider.setOrientation(QtCore.Qt.Horizontal)
         self.volumeslider.setObjectName("volumeslider")
         self.volumeslider.setMinimum(0)
@@ -164,7 +171,7 @@ class Ui_Widget(object):
         self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
-        self.cpu.setGeometry(QtCore.QRect(20, 120, 400, 241))
+        self.cpu.setGeometry(QtCore.QRect(20, 120, 400, 275))
         self.cpu.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.cpu.setFrameShadow(QtWidgets.QFrame.Raised)
         self.cpu.setObjectName("cpu")
@@ -173,7 +180,7 @@ class Ui_Widget(object):
         self.canvas_cpu.setFixedSize(400, 200)
         self.cpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
         self.graphicsView_cpu = QtWidgets.QGraphicsView(self.cpu)
-        self.graphicsView_cpu.setGeometry(QtCore.QRect(0, 50, 400, 181))
+        self.graphicsView_cpu.setGeometry(QtCore.QRect(0, 45, 400, 201))
         self.graphicsView_cpu.setObjectName("graphicsView_cpu")
         self.scene_cpu=QtWidgets.QGraphicsScene()
         self.scene_cpu.setSceneRect(15, 0, 350, 195)
@@ -185,7 +192,7 @@ class Ui_Widget(object):
         self.cpuname.setObjectName("cpuname")
         #GPU使用率
         self.gpu = QtWidgets.QFrame(self.homepage)
-        self.gpu.setGeometry(QtCore.QRect(20, 380, 400, 231))
+        self.gpu.setGeometry(QtCore.QRect(20, 380, 400, 275))
         self.gpu.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.gpu.setFrameShadow(QtWidgets.QFrame.Raised)
         self.gpu.setObjectName("gpu")
@@ -194,10 +201,10 @@ class Ui_Widget(object):
         self.canvas_gpu.setFixedSize(400, 200)
         self.gpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
         self.graphicsView_gpu = QtWidgets.QGraphicsView(self.gpu)
-        self.graphicsView_gpu.setGeometry(QtCore.QRect(0, 50, 400, 181))
+        self.graphicsView_gpu.setGeometry(QtCore.QRect(0, 45, 400, 201))
         self.graphicsView_gpu.setObjectName("graphicsView_gpu")
         self.scene_gpu=QtWidgets.QGraphicsScene()
-        self.scene_gpu.setSceneRect(15, 10, 350, 180)
+        self.scene_gpu.setSceneRect(15, 0, 350, 195)
         self.scene_gpu.addWidget(self.canvas_gpu)
         self.graphicsView_gpu.setScene(self.scene_gpu)
         self.gpuname = QtWidgets.QLabel(self.gpu)
@@ -288,6 +295,7 @@ class Ui_Widget(object):
         self.temperature.setText(temperature_value)
         self.status.setText(weather_description)
         self.gpt.setText(_translate("Widget", "CHATGPT"))
+        self.volume_text.setText("50%")
 
 #------------以上都是介面---------
         #打開攝像頭
