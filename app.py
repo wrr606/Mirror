@@ -466,6 +466,7 @@ class Ui_Widget(object):
         self.list.addItem(text)
     #代辦事項刪除
     def list_del_fn(self):
+        print(self.list.currentItem().text())
         self.list.takeItem(self.list.currentIndex().row())
 
 if __name__ == "__main__":
