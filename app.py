@@ -8,7 +8,7 @@ import GPUtil
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from Volume import set_volume,get_volume
-from Weather import Weather
+from Crawler import News,Weather
 import json
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
