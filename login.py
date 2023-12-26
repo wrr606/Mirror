@@ -1,9 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from FaceID import sign_up,identify
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QImage, QPixmap
 import sys, cv2, threading
 from PyQt5.QtCore import QTimer, Qt, QThread, pyqtSignal
-
 import psutil
 import GPUtil
 from matplotlib import pyplot as plt
