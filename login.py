@@ -7,7 +7,7 @@ import psutil
 import GPUtil
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from Volume import set_volume
+from Volume import set_volume,get_volume
 from Weather import Weather
 import json
 with open('city.json', 'r', encoding='utf-8') as file:
@@ -44,6 +44,7 @@ class Ui_Widget(object):
         self.gpu_thread.gpu_updated.connect(self.update_gpu_usage)
         self.gpu_thread.start()
         self.city_weather=Weather()
+
     #不用理
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
@@ -51,7 +52,7 @@ class Ui_Widget(object):
         #登入畫面
 #######################################################################
         self.loginpage = QtWidgets.QFrame(Widget)
-        self.loginpage.setGeometry(QtCore.QRect(0, 0, 1271, 601))
+        self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1271, 601))
         self.loginpage.setStyleSheet("background-color:white;")
         self.loginpage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.loginpage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -128,7 +129,7 @@ class Ui_Widget(object):
 #######################################################################   
         #進入後畫面 
         self.homepage = QtWidgets.QFrame(Widget)
-        self.homepage.setGeometry(QtCore.QRect(0, 1000, 1272, 600))
+        self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 600))
         self.homepage.setStyleSheet("")
         self.homepage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.homepage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -159,7 +160,7 @@ class Ui_Widget(object):
         self.volumeslider.setObjectName("volumeslider")
         self.volumeslider.setMinimum(0)
         self.volumeslider.setMaximum(100)
-        self.volumeslider.setValue(50)
+        self.volumeslider.setValue(get_volume())
         self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
@@ -240,6 +241,7 @@ class Ui_Widget(object):
         self.status.setGeometry(QtCore.QRect(20, 150, 81, 31))
         self.status.setStyleSheet("background-color:white;")
         self.status.setObjectName("status")
+        self.changetext()
         #ChatGpt
         self.chatgpt = QtWidgets.QFrame(self.homepage)
         self.chatgpt.setGeometry(QtCore.QRect(710, 240, 531, 80))
@@ -275,6 +277,8 @@ class Ui_Widget(object):
         QtCore.QMetaObject.connectSlotsByName(Widget)
 
     def retranslateUi(self, Widget):
+        result=self.city_weather.query(firsttext,self.township.currentText())
+        temperature_value, weather_description = result
         _translate = QtCore.QCoreApplication.translate
         Widget.setWindowTitle(_translate("Widget", "Widget"))
         self.label.setText(_translate("Widget", "登入"))
@@ -286,10 +290,10 @@ class Ui_Widget(object):
         self.gpuname.setText(_translate("Widget", "GPU使用率(%):"))
         self.listdel.setText(_translate("Widget", "刪除"))
         self.listadd.setText(_translate("Widget", "新增"))
-        self.temperature.setText(_translate("Widget", "溫度"))
+        self.temperature.setText(temperature_value)
+        self.status.setText(weather_description)
         self.facecamera.setText(_translate("Widget", "TextLabel"))
         self.gpt.setText(_translate("Widget", "CHATGPT"))
-        self.status.setText(_translate("Widget", "TextLabel"))
 
 #------------以上都是介面---------
         #打開攝像頭
@@ -433,7 +437,8 @@ class Ui_Widget(object):
                 self.weatherimage.setStyleSheet(
                     "background-image:url(\"image/weather/晴.png\")"
             )
-            
+
+        
 
 
 
