@@ -52,7 +52,7 @@ class Ui_Widget(object):
         #登入畫面
 #######################################################################
         self.loginpage = QtWidgets.QFrame(Widget)
-        self.loginpage.setGeometry(QtCore.QRect(0, 2000, 1272, 721))
+        self.loginpage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
         self.loginpage.setStyleSheet("background-color:white;")
         self.loginpage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.loginpage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -129,7 +129,7 @@ class Ui_Widget(object):
 #######################################################################   
         #進入後畫面 
         self.homepage = QtWidgets.QFrame(Widget)
-        self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
+        self.homepage.setGeometry(QtCore.QRect(0, 2000, 1272, 721))
         self.homepage.setStyleSheet("")
         self.homepage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.homepage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -269,9 +269,11 @@ class Ui_Widget(object):
         self.listdel = QtWidgets.QPushButton(self.homepage)
         self.listdel.setGeometry(QtCore.QRect(470, 670, 93, 31))
         self.listdel.setObjectName("listdel")
+        self.listdel.clicked.connect(self.list_del_fn)
         self.listadd = QtWidgets.QPushButton(self.homepage)
         self.listadd.setGeometry(QtCore.QRect(580, 670, 93, 31))
         self.listadd.setObjectName("listadd")
+        self.listadd.clicked.connect(self.list_add_fn)
 
         self.homepage.raise_()
         self.loginpage.raise_()
@@ -298,7 +300,7 @@ class Ui_Widget(object):
         self.volume_text.setText("50%")
 
 #------------以上都是介面---------
-        #打開攝像頭
+    #打開攝像頭
     def opencv(self):
         cap = cv2.VideoCapture(0)
         if not cap.isOpened():
@@ -316,7 +318,7 @@ class Ui_Widget(object):
             qimg = QImage(frame, width, height, bytesPerline, QImage.Format_RGB888)
             self.camera.setPixmap(QPixmap.fromImage(qimg)) 
         cap.release()    
-            #用戶登入
+    #用戶登入
     def userlogin(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
         self.camera.setGeometry(QtCore.QRect(370, 100, 512, 512))
@@ -337,7 +339,7 @@ class Ui_Widget(object):
             self.username.setText(f"歡迎{ID}進入")
             self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
             self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
-
+    #首頁
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
         self.camera.setGeometry(QtCore.QRect(370, 1000, 512, 512))
@@ -345,7 +347,7 @@ class Ui_Widget(object):
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
         self.ocv = False
-
+    #註冊用戶
     def add(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
         self.camera.setGeometry(QtCore.QRect(370, 100, 512, 512))
@@ -439,11 +441,6 @@ class Ui_Widget(object):
                 self.weatherimage.setStyleSheet(
                     "background-image:url(\"image/weather/晴.png\")"
             )
-
-        
-
-
-
     # slider 改變value
     def slider(self,value) :
         set_volume(value/100)
@@ -455,9 +452,14 @@ class Ui_Widget(object):
             self.volume.setStyleSheet(
             "background-image:url(\"image/volume.png\")"
         )
+    #代辦事項新增
+    def list_add_fn(self):
+        text,ok= QtWidgets.QInputDialog().getText(self.homepage, '新增事項', '請輸入新增的事項')
+        self.list.addItem(text)
+    #代辦事項刪除
+    def list_del_fn(self):
+        self.list.takeItem(self.list.currentIndex().row())
 
-
-        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
