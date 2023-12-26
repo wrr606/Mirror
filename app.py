@@ -274,6 +274,14 @@ class Ui_Widget(object):
         self.listadd.setGeometry(QtCore.QRect(580, 670, 93, 31))
         self.listadd.setObjectName("listadd")
         self.listadd.clicked.connect(self.list_add_fn)
+        self.list.setStyleSheet('''
+            QListWidget {
+                border:1px solid #000;
+            }
+            QListWidget:focus {
+                border:3px solid #09c;
+            }
+        ''')
 
         self.homepage.raise_()
         self.loginpage.raise_()
