@@ -48,17 +48,17 @@ class Ui_Widget(object):
     #不用理
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
-        Widget.resize(1272, 600)
+        Widget.resize(1272, 721)
         #登入畫面
 #######################################################################
         self.loginpage = QtWidgets.QFrame(Widget)
-        self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1271, 601))
+        self.loginpage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
         self.loginpage.setStyleSheet("background-color:white;")
         self.loginpage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.loginpage.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.loginpage.setObjectName("frame")
+        self.loginpage.setObjectName("loginpage")
         self.graphicshome = QtWidgets.QGraphicsView(self.loginpage)
-        self.graphicshome.setGeometry(QtCore.QRect(370, 45, 512, 512))
+        self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
         self.graphicshome.setObjectName("graphicsHome")
         self.graphicshome.setStyleSheet("border:0;")
         self.scene=QtWidgets.QGraphicsScene()
@@ -67,7 +67,7 @@ class Ui_Widget(object):
         self.scene.addPixmap(img)
         self.graphicshome.setScene(self.scene)
         self.user = QtWidgets.QPushButton(self.loginpage)
-        self.user.setGeometry(QtCore.QRect(40, 120, 60, 60))
+        self.user.setGeometry(QtCore.QRect(40, 190, 60, 60))
         self.user.setStyleSheet(
             "border-radius: 12px;\n"
             "background-image:url(\"image/user 1.png\")"
@@ -76,7 +76,7 @@ class Ui_Widget(object):
         self.user.setObjectName("user")
         self.user.clicked.connect(self.userlogin)
         self.useradd = QtWidgets.QPushButton(self.loginpage)
-        self.useradd.setGeometry(QtCore.QRect(40, 200, 60, 60))
+        self.useradd.setGeometry(QtCore.QRect(40, 280, 60, 60))
         self.useradd.setStyleSheet(
             "border-radius: 12px;\n"
             "background-image:url(\"image/user-add.png\")"
@@ -85,19 +85,19 @@ class Ui_Widget(object):
         self.useradd.setObjectName("useradd")
         self.useradd.clicked.connect(self.add)
         self.label = QtWidgets.QLabel(self.loginpage)
-        self.label.setGeometry(QtCore.QRect(130, 140, 101, 31))
+        self.label.setGeometry(QtCore.QRect(130, 210, 101, 31))
         self.label.setStyleSheet("font-size:25px;")
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.loginpage)
-        self.label_2.setGeometry(QtCore.QRect(130, 220, 101, 31))
+        self.label_2.setGeometry(QtCore.QRect(130, 300, 101, 31))
         self.label_2.setStyleSheet("font-size:25px;")
         self.label_2.setObjectName("label_2")
         self.camera = QtWidgets.QLabel(self.loginpage)
-        self.camera.setGeometry(QtCore.QRect(370, 1000, 512, 512))
+        self.camera.setGeometry(QtCore.QRect(350, 1000, 512, 512))
         self.camera.setText("")
         self.camera.setObjectName("camera")
         self.home1 = QtWidgets.QPushButton(self.loginpage)
-        self.home1.setGeometry(QtCore.QRect(40, 40, 60, 60))
+        self.home1.setGeometry(QtCore.QRect(40, 100, 60, 60))
         self.home1.setStyleSheet(
             "border-radius: 12px;\n"
             "background-image:url(\"image/home.png\")"
@@ -106,15 +106,15 @@ class Ui_Widget(object):
         self.home1.setObjectName("home")
         self.home1.clicked.connect(self.home)
         self.label_3 = QtWidgets.QLabel(self.loginpage)
-        self.label_3.setGeometry(QtCore.QRect(130, 60, 101, 31))
+        self.label_3.setGeometry(QtCore.QRect(130, 120, 101, 31))
         self.label_3.setStyleSheet("font-size:25px;")
         self.label_3.setObjectName("label_3")
         self.lineEdit = QtWidgets.QLineEdit(self.loginpage)
-        self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
+        self.lineEdit.setGeometry(QtCore.QRect(920, 1000, 211, 61))
         self.lineEdit.setObjectName("lineEdit")
         self.lineEdit.setStyleSheet("font-size:25px;")
         self.label_4 = QtWidgets.QLabel(self.loginpage)
-        self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
+        self.label_4.setGeometry(QtCore.QRect(920, 1000, 231, 31))
         self.label_4.setStyleSheet("font-size:25px;")
         self.label_4.setObjectName("label_4")
         self.Tick = QtWidgets.QPushButton(self.loginpage)
@@ -129,7 +129,7 @@ class Ui_Widget(object):
 #######################################################################   
         #進入後畫面 
         self.homepage = QtWidgets.QFrame(Widget)
-        self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 600))
+        self.homepage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
         self.homepage.setStyleSheet("")
         self.homepage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.homepage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -144,7 +144,7 @@ class Ui_Widget(object):
         self.username.setObjectName("username")
         #音量控制
         self.control = QtWidgets.QFrame(self.homepage)
-        self.control.setGeometry(QtCore.QRect(710, 500, 541, 71))
+        self.control.setGeometry(QtCore.QRect(20, 640, 401, 71))
         self.control.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.control.setFrameShadow(QtWidgets.QFrame.Raised)
         self.control.setObjectName("control")
@@ -155,7 +155,7 @@ class Ui_Widget(object):
         )
         self.volume.setObjectName("volume")
         self.volumeslider = QtWidgets.QSlider(self.control)
-        self.volumeslider.setGeometry(QtCore.QRect(80, 30, 431, 21))
+        self.volumeslider.setGeometry(QtCore.QRect(80, 30, 311, 21))
         self.volumeslider.setOrientation(QtCore.Qt.Horizontal)
         self.volumeslider.setObjectName("volumeslider")
         self.volumeslider.setMinimum(0)
@@ -164,7 +164,7 @@ class Ui_Widget(object):
         self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
-        self.cpu.setGeometry(QtCore.QRect(20, 104, 400, 240))
+        self.cpu.setGeometry(QtCore.QRect(20, 120, 400, 241))
         self.cpu.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.cpu.setFrameShadow(QtWidgets.QFrame.Raised)
         self.cpu.setObjectName("cpu")
@@ -173,7 +173,7 @@ class Ui_Widget(object):
         self.canvas_cpu.setFixedSize(400, 200)
         self.cpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
         self.graphicsView_cpu = QtWidgets.QGraphicsView(self.cpu)
-        self.graphicsView_cpu.setGeometry(QtCore.QRect(0, 39, 400, 200))
+        self.graphicsView_cpu.setGeometry(QtCore.QRect(0, 50, 400, 181))
         self.graphicsView_cpu.setObjectName("graphicsView_cpu")
         self.scene_cpu=QtWidgets.QGraphicsScene()
         self.scene_cpu.setSceneRect(15, 0, 350, 195)
@@ -185,7 +185,7 @@ class Ui_Widget(object):
         self.cpuname.setObjectName("cpuname")
         #GPU使用率
         self.gpu = QtWidgets.QFrame(self.homepage)
-        self.gpu.setGeometry(QtCore.QRect(20, 344, 400, 241))
+        self.gpu.setGeometry(QtCore.QRect(20, 380, 400, 231))
         self.gpu.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.gpu.setFrameShadow(QtWidgets.QFrame.Raised)
         self.gpu.setObjectName("gpu")
@@ -194,7 +194,7 @@ class Ui_Widget(object):
         self.canvas_gpu.setFixedSize(400, 200)
         self.gpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
         self.graphicsView_gpu = QtWidgets.QGraphicsView(self.gpu)
-        self.graphicsView_gpu.setGeometry(QtCore.QRect(0, 40, 400, 201))
+        self.graphicsView_gpu.setGeometry(QtCore.QRect(0, 50, 400, 181))
         self.graphicsView_gpu.setObjectName("graphicsView_gpu")
         self.scene_gpu=QtWidgets.QGraphicsScene()
         self.scene_gpu.setSceneRect(15, 10, 350, 180)
@@ -204,15 +204,6 @@ class Ui_Widget(object):
         self.gpuname.setGeometry(QtCore.QRect(0, 0, 301, 51))
         self.gpuname.setStyleSheet("font-size:30px;")
         self.gpuname.setObjectName("gpuname")
-        #相機
-        self.userface = QtWidgets.QFrame(self.homepage)
-        self.userface.setGeometry(QtCore.QRect(710, 20, 531, 211))
-        self.userface.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.userface.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.userface.setObjectName("userface")
-        self.facecamera = QtWidgets.QLabel(self.userface)
-        self.facecamera.setGeometry(QtCore.QRect(0, 0, 531, 211))
-        self.facecamera.setObjectName("facecamera")
         #天氣
         self.weather = QtWidgets.QFrame(self.homepage)
         self.weather.setGeometry(QtCore.QRect(440, 110, 261, 201))
@@ -244,31 +235,35 @@ class Ui_Widget(object):
         self.changetext()
         #ChatGpt
         self.chatgpt = QtWidgets.QFrame(self.homepage)
-        self.chatgpt.setGeometry(QtCore.QRect(710, 240, 531, 80))
+        self.chatgpt.setGeometry(QtCore.QRect(720, 29, 531, 391))
         self.chatgpt.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.chatgpt.setFrameShadow(QtWidgets.QFrame.Raised)
         self.chatgpt.setObjectName("chatgpt")
+        self.chatgpt_input = QtWidgets.QTextEdit(self.chatgpt)
+        self.chatgpt_input.setGeometry(QtCore.QRect(0, 20, 531, 121))
+        self.chatgpt_input.setObjectName("chatgpt_input")
         self.gpt = QtWidgets.QLabel(self.chatgpt)
-        self.gpt.setGeometry(QtCore.QRect(0, 0, 531, 80))
+        self.gpt.setGeometry(QtCore.QRect(0, 160, 541, 231))
+        self.gpt.setStyleSheet("background-color:white;")
         self.gpt.setObjectName("gpt")
         #新聞
         self.news = QtWidgets.QFrame(self.homepage)
-        self.news.setGeometry(QtCore.QRect(710, 330, 531, 151))
+        self.news.setGeometry(QtCore.QRect(720, 430, 531, 271))
         self.news.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.news.setFrameShadow(QtWidgets.QFrame.Raised)
         self.news.setObjectName("news")
         self.newslist = QtWidgets.QListWidget(self.news)
-        self.newslist.setGeometry(QtCore.QRect(0, 0, 531, 151))
+        self.newslist.setGeometry(QtCore.QRect(0, 0, 531, 271))
         self.newslist.setObjectName("newslist")
         #代辦事項
         self.list = QtWidgets.QListWidget(self.homepage)
-        self.list.setGeometry(QtCore.QRect(440, 320, 261, 211))
+        self.list.setGeometry(QtCore.QRect(440, 320, 261, 331))
         self.list.setObjectName("list")
         self.listdel = QtWidgets.QPushButton(self.homepage)
-        self.listdel.setGeometry(QtCore.QRect(470, 540, 93, 31))
+        self.listdel.setGeometry(QtCore.QRect(470, 670, 93, 31))
         self.listdel.setObjectName("listdel")
         self.listadd = QtWidgets.QPushButton(self.homepage)
-        self.listadd.setGeometry(QtCore.QRect(590, 540, 93, 31))
+        self.listadd.setGeometry(QtCore.QRect(580, 670, 93, 31))
         self.listadd.setObjectName("listadd")
 
         self.homepage.raise_()
@@ -292,7 +287,6 @@ class Ui_Widget(object):
         self.listadd.setText(_translate("Widget", "新增"))
         self.temperature.setText(temperature_value)
         self.status.setText(weather_description)
-        self.facecamera.setText(_translate("Widget", "TextLabel"))
         self.gpt.setText(_translate("Widget", "CHATGPT"))
 
 #------------以上都是介面---------
@@ -317,7 +311,7 @@ class Ui_Widget(object):
             #用戶登入
     def userlogin(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
-        self.camera.setGeometry(QtCore.QRect(370, 45, 512, 512))
+        self.camera.setGeometry(QtCore.QRect(370, 100, 512, 512))
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
@@ -333,11 +327,11 @@ class Ui_Widget(object):
             self.err()
         else :
             self.username.setText(f"歡迎{ID}進入")
-            self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 600))
-            self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 600))
+            self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
+            self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
 
     def home(self):
-        self.graphicshome.setGeometry(QtCore.QRect(370, 45, 512, 512))
+        self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
         self.camera.setGeometry(QtCore.QRect(370, 1000, 512, 512))
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
@@ -346,10 +340,10 @@ class Ui_Widget(object):
 
     def add(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
-        self.camera.setGeometry(QtCore.QRect(370, 45, 512, 512))
-        self.lineEdit.setGeometry(QtCore.QRect(930, 140, 211, 61))
-        self.label_4.setGeometry(QtCore.QRect(930, 90, 231, 31))
-        self.Tick.setGeometry(QtCore.QRect(1160, 140, 71, 61))
+        self.camera.setGeometry(QtCore.QRect(370, 100, 512, 512))
+        self.lineEdit.setGeometry(QtCore.QRect(920, 190, 211, 61))
+        self.label_4.setGeometry(QtCore.QRect(920, 140, 231, 31))
+        self.Tick.setGeometry(QtCore.QRect(1160, 190, 71, 61))
         self.ocv = True
         # 检查线程是否已经启动
         if not self.video_thread or not self.video_thread.is_alive():
