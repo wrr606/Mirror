@@ -10,7 +10,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from Volume import set_volume,get_volume
 from Crawler import News,Weather
 import json
-from memorandum import add_district
+from memorandum import add_district,remove_value
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
 firsttext="金門縣"
@@ -307,6 +307,7 @@ class Ui_Widget(object):
         self.status.setText(weather_description)
         self.gpt.setText(_translate("Widget", "CHATGPT"))
         self.volume_text.setText("50%")
+        
 
 #------------以上都是介面---------
     #打開攝像頭
@@ -326,7 +327,9 @@ class Ui_Widget(object):
             bytesPerline = channel * width
             qimg = QImage(frame, width, height, bytesPerline, QImage.Format_RGB888)
             self.camera.setPixmap(QPixmap.fromImage(qimg)) 
-        cap.release()    
+        cap.release()  
+    def account_num(self):
+        self.name = None
     #用戶登入
     def userlogin(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
@@ -345,6 +348,7 @@ class Ui_Widget(object):
             #顯示彈窗
             self.err()
         else :
+            self.name=ID
             self.username.setText(f"歡迎{ID}進入")
             self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
             self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
@@ -464,11 +468,38 @@ class Ui_Widget(object):
     #代辦事項新增
     def list_add_fn(self):
         text,ok= QtWidgets.QInputDialog().getText(self.homepage, '新增事項', '請輸入新增的事項')
+        add_district(self.name, text)
         self.list.addItem(text)
+        self.get_data_from_json()
+
+
+    def get_data_from_json(self):
+        try:
+            # 读取现有的 JSON 数据
+            with open('test.json', 'r', encoding='utf-8') as f:
+                load_dict = json.load(f)
+
+            # 清空列表
+            self.list.clear()
+
+            # 在这里处理从 JSON 中获取的数据
+            for item in load_dict.get(self.name, []):
+                self.list.addItem(item)
+
+        except FileNotFoundError:
+            print("JSON 文件不存在")
+
+        except json.JSONDecodeError:
+            print("JSON 解码错误")
+
+
     #代辦事項刪除
     def list_del_fn(self):
+        text=self.list.currentItem().text()
         print(self.list.currentItem().text())
+        remove_value(self.name, text)
         self.list.takeItem(self.list.currentIndex().row())
+        self.get_data_from_json()
 
 if __name__ == "__main__":
     import sys
