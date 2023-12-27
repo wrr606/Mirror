@@ -472,7 +472,7 @@ class Ui_Widget(object):
         self.list.addItem(text)
         self.get_data_from_json()
 
-
+    #搜尋備忘錄的json檔案
     def get_data_from_json(self):
         try:
             # 读取现有的 JSON 数据
