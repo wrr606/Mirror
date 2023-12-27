@@ -284,7 +284,6 @@ class Ui_Widget(object):
             }
         ''')
         
-
         self.homepage.raise_()
         self.loginpage.raise_()
         self.retranslateUi(Widget)
@@ -474,6 +473,17 @@ class Ui_Widget(object):
         self.list.addItem(text)
         self.get_data_from_json()
 
+    #代辦事項刪除
+    def list_del_fn(self):
+        if self.list.currentIndex().row() !=-1:
+            text=self.list.currentItem().text()
+            print(self.list.currentItem().text())
+            remove_value(self.name, text)
+            self.list.takeItem(self.list.currentIndex().row())
+            self.get_data_from_json()
+        else:
+            self.err()
+
     #搜尋備忘錄的json檔案
     def get_data_from_json(self):
         try:
@@ -493,15 +503,6 @@ class Ui_Widget(object):
 
         except json.JSONDecodeError:
             print("JSON 解码错误")
-
-
-    #代辦事項刪除
-    def list_del_fn(self):
-        text=self.list.currentItem().text()
-        print(self.list.currentItem().text())
-        remove_value(self.name, text)
-        self.list.takeItem(self.list.currentIndex().row())
-        self.get_data_from_json()
 
 if __name__ == "__main__":
     import sys
