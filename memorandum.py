@@ -5,7 +5,7 @@ import json
 def add_district( name, new_data):
     try:
         # 讀取現有的 JSON 數據
-        with open('test.json', 'r', encoding='utf-8') as f:
+        with open('memorandum.json', 'r', encoding='utf-8') as f:
             load_dict = json.load(f)
     except FileNotFoundError:
         # 如果檔案不存在，建立一個新的字典
@@ -21,13 +21,13 @@ def add_district( name, new_data):
     load_dict[name] = districts
 
     # 将更新后的数据写回JSON文件
-    with open('test.json', 'w', encoding='utf-8') as f2:
+    with open('memorandum.json', 'w', encoding='utf-8') as f2:
         json.dump(load_dict, f2, ensure_ascii=False, indent=2)
 
 def remove_value(name, value_to_remove):
     try:
         # 读取现有的 JSON 数据
-        with open('test.json', 'r', encoding='utf-8') as f:
+        with open('memorandum.json', 'r', encoding='utf-8') as f:
             load_dict = json.load(f)
     except FileNotFoundError:
         print("JSON 文件不存在")
@@ -49,5 +49,5 @@ def remove_value(name, value_to_remove):
         print(f"{name} 不存在于数据中")
 
     # 将更新后的数据写回JSON文件
-    with open('test.json', 'w', encoding='utf-8') as f2:
+    with open('memorandum.json', 'w', encoding='utf-8') as f2:
         json.dump(load_dict, f2, ensure_ascii=False, indent=2)

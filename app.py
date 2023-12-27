@@ -476,7 +476,7 @@ class Ui_Widget(object):
     def get_data_from_json(self):
         try:
             # 读取现有的 JSON 数据
-            with open('test.json', 'r', encoding='utf-8') as f:
+            with open('memorandum.json', 'r', encoding='utf-8') as f:
                 load_dict = json.load(f)
 
             # 清空列表
