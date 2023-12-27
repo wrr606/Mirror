@@ -283,6 +283,7 @@ class Ui_Widget(object):
                 border:3px solid #09c;
             }
         ''')
+        
 
         self.homepage.raise_()
         self.loginpage.raise_()
@@ -352,6 +353,7 @@ class Ui_Widget(object):
             self.username.setText(f"歡迎{ID}進入")
             self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
             self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
+            self.get_data_from_json()
     #首頁
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
