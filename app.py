@@ -11,6 +11,8 @@ from Volume import set_volume,get_volume
 from Crawler import News,Weather
 import json
 from memorandum import add_district,remove_value
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
 firsttext="金門縣"
@@ -45,6 +47,7 @@ class Ui_Widget(object):
         self.gpu_thread.gpu_updated.connect(self.update_gpu_usage)
         self.gpu_thread.start()
         self.city_weather=Weather()
+        self.line_news=News()
 
     #不用理
     def setupUi(self, Widget):
@@ -263,6 +266,7 @@ class Ui_Widget(object):
         self.newslist = QtWidgets.QListWidget(self.news)
         self.newslist.setGeometry(QtCore.QRect(0, 0, 531, 271))
         self.newslist.setObjectName("newslist")
+        self.newslist.clicked.connect(self.open_link)
         #代辦事項
         self.list = QtWidgets.QListWidget(self.homepage)
         self.list.setGeometry(QtCore.QRect(440, 320, 261, 331))
@@ -353,6 +357,7 @@ class Ui_Widget(object):
             self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
             self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
             self.get_data_from_json()
+            self.add_news()
     #首頁
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
@@ -472,7 +477,6 @@ class Ui_Widget(object):
         add_district(self.name, text)
         self.list.addItem(text)
         self.get_data_from_json()
-
     #代辦事項刪除
     def list_del_fn(self):
         if self.list.currentIndex().row() !=-1:
@@ -503,6 +507,21 @@ class Ui_Widget(object):
 
         except json.JSONDecodeError:
             print("JSON 解码错误")
+    #新增新聞
+    def add_news(self):
+        for i in range(11):
+            self.newslist.addItem(self.line_news.news[i][0])
+    #打開連結
+    def open_link(self):
+        # 定義超連結
+        url = QUrl(self.line_news.news[self.newslist.currentIndex().row()][1])
+        # 使用QDesktopServices打開超連結
+        if not QDesktopServices.openUrl(url):
+            # 如果無法打開超連結，可以在這裡處理錯誤
+            errbox = QtWidgets.QMessageBox(self.homepage)
+            errbox.setText("無法打開超連結")
+            errbox.setIcon(2)
+            errbox.exec()
 
 if __name__ == "__main__":
     import sys
