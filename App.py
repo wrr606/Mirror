@@ -48,6 +48,7 @@ class Ui_Widget(object):
         self.gpu_thread.start()
         self.city_weather=Weather()
         self.line_news=News()
+        self.frame=None
 
     #不用理
     def setupUi(self, Widget):
@@ -322,6 +323,7 @@ class Ui_Widget(object):
             exit()
         while self.ocv:
             ret, frame = cap.read()
+            self.frame=frame.copy()
             if not ret:
                 print("Cannot receive frame")
                 break
@@ -347,7 +349,7 @@ class Ui_Widget(object):
             self.video_thread = threading.Thread(target=self.opencv)
             self.video_thread.start()
         #判斷是不是本人    
-        ID=identify()
+        ID=identify(self.frame)
         if bool(ID)==False :
             #顯示彈窗
             self.err()
@@ -365,7 +367,7 @@ class Ui_Widget(object):
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
-        self.ocv = False
+        self.ocv = True
     #註冊用戶
     def add(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
@@ -381,7 +383,7 @@ class Ui_Widget(object):
 
     #check是打勾按鈕
     def check(self):
-        if sign_up(self.lineEdit.text()) == False :
+        if sign_up(self.lineEdit.text(),self.frame) == False :
             #顯示彈窗
             self.err()
         else :

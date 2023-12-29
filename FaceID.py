@@ -4,7 +4,7 @@ from numpy import asarray
 from time import sleep,time
 
 #傳入名字，打開攝影機，訓練自己的臉部資料(200 張)，正常結束後會回傳 True，撞到名字會回傳 False
-def sign_up(name:str)->bool:
+def sign_up(name:str,frame)->bool:
     if not os.path.exists("images"):
         os.makedirs("images")
     #撞到名字
@@ -17,9 +17,7 @@ def sign_up(name:str)->bool:
 
     os.mkdir("images/"+name)
     face_cascade=cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt2.xml")
-    cap=cv2.VideoCapture(0)
     while index>0:
-        ret,frame=cap.read()
         frame=cv2.flip(frame,1)
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         faces=face_cascade.detectMultiScale(gray,1.1,3)
@@ -33,7 +31,6 @@ def sign_up(name:str)->bool:
                 index=-1
                 break
         cv2.waitKey(1)
-    cap.release()
 
     images=[]
     labels=[]
@@ -61,7 +58,7 @@ def sign_up(name:str)->bool:
     return True
 
 #辨識攝影機前的人是誰，會回傳辨識出來的人名，否則回傳 False
-def identify()->str:
+def identify(frame)->str:
     if not os.path.exists("images"):
         os.makedirs("images")
     if not os.path.exists("faces_LBPH.yml") or not os.path.exists("member.txt"):
@@ -72,18 +69,9 @@ def identify()->str:
     names=f.readline().split(',')
 
     face_cascade=cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt2.xml")
-    cap=cv2.VideoCapture(0)
 
-    timenow=time()
-    while cap.isOpened():
-        count=1-int(time()-timenow)
-        ret,img=cap.read()
-        if ret==True:
-            imgcopy=img.copy()
-            cv2.putText(imgcopy,str(count),(200,400),cv2.FONT_HERSHEY_SIMPLEX,15,(0,0,255),35)
-            cv2.imwrite("images/tem.jpg",img)
-            break
-    cap.release()
+    img=frame
+    cv2.imwrite("images/tem.jpg",img)
 
     img=cv2.imread("images/tem.jpg")
     gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -97,7 +85,7 @@ def identify()->str:
                 print("辨識結果： "+names[val[0]],val[1])
                 return names[val[0]]
             else:
-                print("無法辨識")
+                print("無法辨識",val[1])
                 return False
         except:
             print("ERROR!!! 錯誤！！！")
