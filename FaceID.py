@@ -13,7 +13,7 @@ def sign_up(name:str)->bool:
         return False
     
     index=1
-    total=200
+    total=150
 
     os.mkdir("images/"+name)
     face_cascade=cv2.CascadeClassifier(cv2.data.haarcascades+"haarcascade_frontalface_alt2.xml")
@@ -27,7 +27,6 @@ def sign_up(name:str)->bool:
             frame=cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),3)
             image=cv2.resize(gray[y:y+h,x:x+w],(400,400))
             __saveImg(image,index,name)
-            sleep(0.01)
             index+=1
             if index>total:
                 print("完成拍攝，關閉相機")
@@ -77,14 +76,13 @@ def identify()->str:
 
     timenow=time()
     while cap.isOpened():
-        count=2-int(time()-timenow)
+        count=1-int(time()-timenow)
         ret,img=cap.read()
         if ret==True:
             imgcopy=img.copy()
             cv2.putText(imgcopy,str(count),(200,400),cv2.FONT_HERSHEY_SIMPLEX,15,(0,0,255),35)
-            if count==0:
-                cv2.imwrite("images/tem.jpg",img)
-                break
+            cv2.imwrite("images/tem.jpg",img)
+            break
     cap.release()
 
     img=cv2.imread("images/tem.jpg")
