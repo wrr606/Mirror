@@ -10,7 +10,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from Volume import set_volume,get_volume
 from Crawler import News,Weather
 import json
-from memorandum import add_district,remove_value
+from Memorandum import add_district,remove_value
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
 with open('city.json', 'r', encoding='utf-8') as file:

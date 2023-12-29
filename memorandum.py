@@ -1,7 +1,5 @@
 import json
 
-
-
 def add_district( name, new_data):
     try:
         # 讀取現有的 JSON 數據
