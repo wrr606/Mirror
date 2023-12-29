@@ -6,16 +6,13 @@ class News:
     def __init__(self):
         url="https://news.google.com/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRFZxYUdjU0JYcG9MVlJYR2dKVVZ5Z0FQAQ?hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant"
         res = requests.get(url)
-        temp = BeautifulSoup(res.text)
+        temp = BeautifulSoup(res.text, 'lxml')
         temp=temp.find("c-wiz",class_="D9SJMe").find_all("c-wiz",class_="PO9Zff Ccj79 kUVvS")
         self.news=[]
         for i in temp:
             for j in i.find_all("div",class_="f9uzM"):
                 href=urljoin("https://news.google.com", j.find('a', class_='WwrzSb')['href'])
                 self.news.append([j.find('a', class_="gPFEn").text,href])
-
-x=News()
-print(x.news[0][1])
 
 class Weather:
     def __init__(self):
