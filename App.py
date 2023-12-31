@@ -482,25 +482,17 @@ class Ui_Widget(object):
         else:
             self.err()
 
-    #搜尋備忘錄的json檔案
     def get_data_from_json(self):
         try:
-            # 读取现有的 JSON 数据
             with open('memorandum.json', 'r', encoding='utf-8') as f:
                 load_dict = json.load(f)
-
-            # 清空列表
             self.list.clear()
-
-            # 在这里处理从 JSON 中获取的数据
             for item in load_dict.get(self.name, []):
                 self.list.addItem(item)
-
         except FileNotFoundError:
             print("JSON 文件不存在")
-
         except json.JSONDecodeError:
-            print("JSON 解码错误")
+            print("JSON 解碼錯誤")
     #新增新聞
     def add_news(self):
         for i in range(11):
@@ -518,7 +510,6 @@ class Ui_Widget(object):
             errbox.exec()
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     Widget = QtWidgets.QWidget()
     ui = Ui_Widget()
