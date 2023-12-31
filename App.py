@@ -1,18 +1,19 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from FaceID import sign_up,identify
 from PyQt5.QtGui import QImage, QPixmap
-import sys, cv2, threading
 from PyQt5.QtCore import QThread, pyqtSignal
-import psutil
-import GPUtil
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
+import sys, threading, json
+from time import sleep
+from FaceID import sign_up,identify
+import cv2
+import psutil, GPUtil
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from Volume import set_volume,get_volume
 from Crawler import News,Weather
-import json
 from Memorandum import add_district,remove_value
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QDesktopServices
+
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
 firsttext="金門縣"
@@ -49,6 +50,7 @@ class Ui_Widget(object):
         self.city_weather=Weather()
         self.line_news=News()
         self.frame=None
+        self.ocv=True
 
     #不用理
     def setupUi(self, Widget):
@@ -343,11 +345,6 @@ class Ui_Widget(object):
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
-        self.ocv = True
-        # 检查线程是否已经启动
-        if not self.video_thread or not self.video_thread.is_alive():
-            self.video_thread = threading.Thread(target=self.opencv)
-            self.video_thread.start()
         #判斷是不是本人    
         ID=identify(self.frame)
         if bool(ID)==False :
@@ -360,6 +357,7 @@ class Ui_Widget(object):
             self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
             self.get_data_from_json()
             self.add_news()
+            self.ocv=False
     #首頁
     def home(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
@@ -367,7 +365,6 @@ class Ui_Widget(object):
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 1000, 71, 61))
-        self.ocv = True
     #註冊用戶
     def add(self):
         self.graphicshome.setGeometry(QtCore.QRect(370, 1000, 512, 512))
@@ -375,11 +372,6 @@ class Ui_Widget(object):
         self.lineEdit.setGeometry(QtCore.QRect(920, 190, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(920, 140, 231, 31))
         self.Tick.setGeometry(QtCore.QRect(1160, 190, 71, 61))
-        self.ocv = True
-        # 检查线程是否已经启动
-        if not self.video_thread or not self.video_thread.is_alive():
-            self.video_thread = threading.Thread(target=self.opencv)
-            self.video_thread.start()
 
     #check是打勾按鈕
     def check(self):
@@ -531,6 +523,8 @@ if __name__ == "__main__":
     Widget = QtWidgets.QWidget()
     ui = Ui_Widget()
     ui.setupUi(Widget)
-    video = threading.Thread(target=ui.opencv)  
+    ui.video_thread = threading.Thread(target=ui.opencv)
+    ui.video_thread.start()
+    sleep(3)
     Widget.show()
     sys.exit(app.exec_())
