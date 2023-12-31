@@ -526,11 +526,15 @@ class Ui_Widget(object):
             #顯示彈窗
             self.err()
         else :
-            print("進入主畫面") #liu
+            print("進入主畫面")
+            mbox = QtWidgets.QMessageBox(Widget)
+            mbox.setText("註冊成功，請登入")
+            mbox.setIcon(2)
+            mbox.exec()
     #顯示彈窗
     def err(self):
         mbox = QtWidgets.QMessageBox(Widget)
-        mbox.setText("請重新操作")
+        mbox.setText("辨識失敗，請重試")
         mbox.setIcon(2)
         mbox.exec()
 
