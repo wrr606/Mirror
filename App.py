@@ -99,7 +99,7 @@ class Ui_Widget(object):
         self.user_text.setObjectName("user_text")
         self.user_text.clicked.connect(self.userlogin)
         self.useradd_text = QtWidgets.QPushButton(self.loginpage)
-        self.useradd_text.setGeometry(QtCore.QRect(130, 300, 101, 31))
+        self.useradd_text.setGeometry(QtCore.QRect(150, 300, 101, 31))
         self.useradd_text.setStyleSheet('''
             font-size:25px;
             border:0px;                        
@@ -446,7 +446,7 @@ class Ui_Widget(object):
         result=self.city_weather.query(firsttext,self.township.currentText())
         temperature_value, weather_description = result
         _translate = QtCore.QCoreApplication.translate
-        Widget.setWindowTitle(_translate("Widget", "Widget"))
+        Widget.setWindowTitle(_translate("Widget", "魔鏡 Windows管家"))
         self.user_text.setText(_translate("Widget", "登入"))
         self.useradd_text.setText(_translate("Widget", "新增用戶"))
         self.home_text.setText(_translate("Widget", "首頁"))
