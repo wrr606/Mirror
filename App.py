@@ -13,6 +13,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from Volume import set_volume,get_volume
 from Crawler import News,Weather
 from Memorandum import add_district,remove_value
+from ChatGPT import chatgpt
 
 with open('city.json', 'r', encoding='utf-8') as file:
     city = json.load(file)
@@ -175,6 +176,7 @@ class Ui_Widget(object):
         self.volumeslider.setMinimum(0)
         self.volumeslider.setMaximum(100)
         self.volumeslider.setValue(get_volume())
+        self.volume_text.setText(f"{get_volume()}")
         self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
@@ -313,7 +315,6 @@ class Ui_Widget(object):
         self.temperature.setText(temperature_value)
         self.status.setText(weather_description)
         self.gpt.setText(_translate("Widget", "CHATGPT"))
-        self.volume_text.setText("50%")
         
 
 #------------以上都是介面---------
@@ -457,6 +458,7 @@ class Ui_Widget(object):
     # slider 改變value
     def slider(self,value) :
         set_volume(value/100)
+        self.volume_text.setText(f"{value}")
         if value==0:
             self.volume.setStyleSheet(
             "background-image:url(\"image/volume-slash.png\")"
