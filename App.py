@@ -66,11 +66,11 @@ class Ui_Widget(object):
         self.loginpage.setFrameShadow(QtWidgets.QFrame.Raised)
         self.loginpage.setObjectName("loginpage")
         self.graphicshome = QtWidgets.QGraphicsView(self.loginpage)
-        self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
+        self.graphicshome.setGeometry(QtCore.QRect(370, 10, 600, 600))
         self.graphicshome.setObjectName("graphicsHome")
-        self.graphicshome.setStyleSheet("border:0;")
+        self.graphicshome.setStyleSheet("border:0px;")
         self.scene=QtWidgets.QGraphicsScene()
-        self.scene.setSceneRect(245, 250, 10, 10)
+        self.scene.setSceneRect(10, 10, 595, 595)
         img =QtGui.QPixmap("image/face-id.png")
         self.scene.addPixmap(img)
         self.graphicshome.setScene(self.scene)
@@ -355,13 +355,44 @@ class Ui_Widget(object):
         self.chatgpt.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.chatgpt.setFrameShadow(QtWidgets.QFrame.Raised)
         self.chatgpt.setObjectName("chatgpt")
+        self.chatgpt.setStyleSheet('''
+            QFrame#chatgpt {
+                background-color: rgb(239,245,245); 
+                border-radius: 30px; 
+            }      
+            QFrame#chatgpt:hover {
+                background-color: rgb(90, 177, 201);
+            }
+            QPushButton#chatgpt_check_btn{
+                background-color: rgb(241,247,247); 
+                border:1px solid #000; 
+                border-radius: 10px;  
+                font-size:25px;                                 
+            }
+            QListWidget#gpt {
+                border:1px solid #000;
+                background-color:white;
+                border-radius: 10px; 
+                font-size:25px;                      
+            }        
+            QTextEdit#chatgpt_input{
+                border:1px solid #000;
+                background-color:white;
+                border-radius: 10px; 
+                font-size:25px;                       
+            }
+        ''')
         self.chatgpt_input = QtWidgets.QTextEdit(self.chatgpt)
-        self.chatgpt_input.setGeometry(QtCore.QRect(0, 20, 531, 121))
+        self.chatgpt_input.setGeometry(QtCore.QRect(20, 20, 410, 121))
         self.chatgpt_input.setObjectName("chatgpt_input")
-        self.gpt = QtWidgets.QLabel(self.chatgpt)
-        self.gpt.setGeometry(QtCore.QRect(0, 160, 541, 231))
+        self.gpt = QtWidgets.QListWidget(self.chatgpt)
+        self.gpt.setGeometry(QtCore.QRect(20, 160, 490, 210))
         self.gpt.setStyleSheet("background-color:white;")
         self.gpt.setObjectName("gpt")
+        self.chatgpt_check_btn = QtWidgets.QPushButton(self.chatgpt)
+        self.chatgpt_check_btn.setGeometry(QtCore.QRect(445, 90, 75, 50))
+        self.chatgpt_check_btn.setObjectName("chatgpt_check_btn")
+        self.chatgpt_check_btn.clicked.connect(self.chatgpt_ans)
         #新聞
         self.news = QtWidgets.QFrame(self.homepage)
         self.news.setGeometry(QtCore.QRect(720, 430, 531, 271))
@@ -408,7 +439,8 @@ class Ui_Widget(object):
             QListWidget#list {
                 border:1px solid #000;
                 background-color:white;
-                border-radius: 10px;                       
+                border-radius: 10px; 
+                font-size:25px;                      
             }
             QPushButton#listdel{
                 background-color: rgb(241,247,247); 
@@ -421,10 +453,7 @@ class Ui_Widget(object):
                 border:1px solid #000; 
                 border-radius: 10px;  
                 font-size:25px;                                 
-            }     
-            QListWidget#list{
-                font-size:25px;                          
-            }                     
+            }                   
         ''')
         self.list = QtWidgets.QListWidget(self.list_frame)
         self.list.setGeometry(QtCore.QRect(20, 20, 230, 310))
@@ -460,7 +489,7 @@ class Ui_Widget(object):
         self.listadd.setText(_translate("Widget", "新增"))
         self.temperature.setText(temperature_value)
         self.status.setText(weather_description)
-        self.gpt.setText(_translate("Widget", "CHATGPT"))
+        self.chatgpt_check_btn.setText("確認")
         
 
 #------------以上都是介面---------
@@ -507,7 +536,7 @@ class Ui_Widget(object):
             self.ocv=False
     #首頁
     def home(self):
-        self.graphicshome.setGeometry(QtCore.QRect(370, 100, 512, 512))
+        self.graphicshome.setGeometry(QtCore.QRect(370, 10, 600, 600))
         self.camera.setGeometry(QtCore.QRect(370, 1000, 512, 512))
         self.lineEdit.setGeometry(QtCore.QRect(930, 1000, 211, 61))
         self.label_4.setGeometry(QtCore.QRect(930, 1000, 231, 31))
@@ -579,6 +608,8 @@ class Ui_Widget(object):
             self.temperature.setText(temperature_value) 
             if weather_description=="-99":
                 weather_description=="多雲"
+                pixmap = QtGui.QPixmap("image/weather/多雲.png")
+                self.weatherimage.setPixmap(pixmap)
                 self.status.setText("多雲")
             else :
                 self.status.setText(weather_description)  
@@ -732,7 +763,11 @@ class Ui_Widget(object):
                     background-color:rgb(239,245,245);          
                 }
             ''')
-
+    
+    #gpt回答
+    def chatgpt_ans(self):
+        ans=chatgpt(self.chatgpt_input.toPlainText())
+        self.gpt.addItem(ans)
 
 
 if __name__ == "__main__":
