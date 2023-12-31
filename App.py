@@ -766,8 +766,17 @@ class Ui_Widget(object):
     
     #gpt回答
     def chatgpt_ans(self):
-        ans=chatgpt(self.chatgpt_input.toPlainText())
-        self.gpt.addItem(ans)
+        text=self.chatgpt_input.toPlainText()
+        if text=="":
+            mbox = QtWidgets.QMessageBox(Widget)
+            mbox.setText("未輸入訊息")
+            mbox.setIcon(2)
+            mbox.exec()
+        else:
+            print(text)
+            ans=chatgpt(self.chatgpt_input.toPlainText())
+            self.gpt.clear()
+            self.gpt.addItem(ans)
 
 
 if __name__ == "__main__":
