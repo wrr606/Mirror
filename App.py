@@ -576,10 +576,7 @@ class Ui_Widget(object):
         if join==1:
             result=self.city_weather.query(firsttext,self.township.currentText())
             temperature_value, weather_description = result
-            if temperature_value=="-99":
-                self.temperature.setText("數值不正常")
-            else :
-                self.temperature.setText(temperature_value) 
+            self.temperature.setText(temperature_value) 
             if weather_description=="-99":
                 weather_description=="多雲"
                 self.status.setText("多雲")
