@@ -89,17 +89,32 @@ class Ui_Widget(object):
             "border-radius: 12px;\n"
             "background-image:url(\"image/user-add.png\")"
         )
-        self.useradd.setText("")
         self.useradd.setObjectName("useradd")
         self.useradd.clicked.connect(self.add)
-        self.label = QtWidgets.QLabel(self.loginpage)
-        self.label.setGeometry(QtCore.QRect(130, 210, 101, 31))
-        self.label.setStyleSheet("font-size:25px;")
-        self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(self.loginpage)
-        self.label_2.setGeometry(QtCore.QRect(130, 300, 101, 31))
-        self.label_2.setStyleSheet("font-size:25px;")
-        self.label_2.setObjectName("label_2")
+        self.user_text = QtWidgets.QPushButton(self.loginpage)
+        self.user_text.setGeometry(QtCore.QRect(130, 210, 101, 31))
+        self.user_text.setStyleSheet('''
+            font-size:25px;
+            border:0px;                        
+        ''')
+        self.user_text.setObjectName("user_text")
+        self.user_text.clicked.connect(self.userlogin)
+        self.useradd_text = QtWidgets.QPushButton(self.loginpage)
+        self.useradd_text.setGeometry(QtCore.QRect(150, 300, 101, 31))
+        self.useradd_text.setStyleSheet('''
+            font-size:25px;
+            border:0px;                        
+        ''')
+        self.useradd_text.setObjectName("useradd_text")
+        self.useradd_text.clicked.connect(self.add)
+        self.home_text = QtWidgets.QPushButton(self.loginpage)
+        self.home_text.setGeometry(QtCore.QRect(130, 120, 101, 31))
+        self.home_text.setStyleSheet('''
+            font-size:25px;
+            border:0px;                        
+        ''')
+        self.home_text.setObjectName("home_text")
+        self.home_text.clicked.connect(self.home)
         self.camera = QtWidgets.QLabel(self.loginpage)
         self.camera.setGeometry(QtCore.QRect(350, 1000, 512, 512))
         self.camera.setText("")
@@ -113,10 +128,6 @@ class Ui_Widget(object):
         self.home1.setText("")
         self.home1.setObjectName("home")
         self.home1.clicked.connect(self.home)
-        self.label_3 = QtWidgets.QLabel(self.loginpage)
-        self.label_3.setGeometry(QtCore.QRect(130, 120, 101, 31))
-        self.label_3.setStyleSheet("font-size:25px;")
-        self.label_3.setObjectName("label_3")
         self.lineEdit = QtWidgets.QLineEdit(self.loginpage)
         self.lineEdit.setGeometry(QtCore.QRect(920, 1000, 211, 61))
         self.lineEdit.setObjectName("lineEdit")
@@ -137,38 +148,73 @@ class Ui_Widget(object):
 #######################################################################   
         #進入後畫面 
         self.homepage = QtWidgets.QFrame(Widget)
-        self.homepage.setGeometry(QtCore.QRect(0, 2000, 1272, 721))
+        self.homepage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
         self.homepage.setStyleSheet("")
         self.homepage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.homepage.setFrameShadow(QtWidgets.QFrame.Raised)
         self.homepage.setObjectName("homepage")
-
+        self.homepage.setStyleSheet('''
+            QFrame#homepage{
+                background-color:rgb(184,214,214);                        
+            }
+            QLabel#username{
+                font-size:35px;
+                background-color:rgb(239,245,245); 
+                border-radius:30px;  
+                font-family:"DFKai-SB";                    
+            } 
+        ''')
         self.username = QtWidgets.QLabel(self.homepage)
-        self.username.setGeometry(QtCore.QRect(20, 20, 661, 81))
-        self.username.setStyleSheet(
-            "font-size:35px;\n"
-            "background-color:white;"
-        )
+        self.username.setGeometry(QtCore.QRect(25, 15, 661, 55))
         self.username.setObjectName("username")
+        self.username.setAlignment(QtCore.Qt.AlignCenter)
+        self.username.setStyleSheet('''
+            QLabel#username{
+                font-size:35px;
+                background-color:rgb(239,245,245); 
+                font-family:"DFKai-SB"; 
+                font-weight:bold;
+                text-align:center;
+                border-radius: 15px;                 
+            } 
+            QLabel#username:hover {
+                background-color:rgb(90,177,201);
+            }
+        ''')
         #音量控制
         self.control = QtWidgets.QFrame(self.homepage)
         self.control.setGeometry(QtCore.QRect(20, 640, 401, 71))
         self.control.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.control.setFrameShadow(QtWidgets.QFrame.Raised)
         self.control.setObjectName("control")
+        self.control.setStyleSheet('''
+            QFrame#control {
+                background-color:rgb(239,245,245); 
+                border-radius:30px;             
+            }
+            QFrame#control:hover {
+                background-color:rgb(90,177,201);
+            }      
+            QLabel#volume_text{
+                font-size:25px;
+                background-color:rgb(239,245,245);                          
+            }
+            QSlider#volumeslider{
+                background-color:rgb(239,245,245);
+            }
+            QLabel#volume{
+                background-image:url(\"image/volume.png\");  
+                background-color:rgb(239,245,245);             
+            }
+        ''')
+        self.control.enterEvent = self.control_onEnter
+        self.control.leaveEvent = self.control_onLeave
         self.volume = QtWidgets.QLabel(self.control)
         self.volume.setGeometry(QtCore.QRect(10, 10, 50, 50))
-        self.volume.setStyleSheet(
-            "background-image:url(\"image/volume.png\")"
-        )
         self.volume.setObjectName("volume")
         self.volume_text = QtWidgets.QLabel(self.control)
-        self.volume_text.setGeometry(QtCore.QRect(350, 10, 50, 50))
-        self.volume_text.setStyleSheet("font-size:25px;")
+        self.volume_text.setGeometry(QtCore.QRect(345, 10, 50, 50))
         self.volume_text.setObjectName("volume_text")
-        self.volume_text.setStyleSheet(
-            "font-size:30px;"
-        )
         self.volumeslider = QtWidgets.QSlider(self.control)
         self.volumeslider.setGeometry(QtCore.QRect(80, 30, 250, 21))
         self.volumeslider.setOrientation(QtCore.Qt.Horizontal)
@@ -180,52 +226,109 @@ class Ui_Widget(object):
         self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
-        self.cpu.setGeometry(QtCore.QRect(20, 120, 400, 275))
+        self.cpu.setGeometry(QtCore.QRect(20, 80, 400, 275))
         self.cpu.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.cpu.setFrameShadow(QtWidgets.QFrame.Raised)
         self.cpu.setObjectName("cpu")
+        self.cpu.setStyleSheet('''
+            QFrame#cpu {
+                background-color:rgb(239,245,245); 
+                border-radius:30px;             
+            }        
+            QFrame#cpu:hover {
+                background-color:rgb(90,177,201);
+            }
+            QLabel#cpuname{
+                background-color:rgb(239,245,245); 
+                border-radius:30px; 
+                font-size:30px;         
+            }                  
+        ''')
+        self.cpu.enterEvent = self.cpu_onEnter
+        self.cpu.leaveEvent = self.cpu_onLeave
         self.figure_cpu, self.ax_cpu = plt.subplots()
         self.canvas_cpu = FigureCanvas(self.figure_cpu)
-        self.canvas_cpu.setFixedSize(400, 200)
+        self.canvas_cpu.setFixedSize(350, 200)
         self.cpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
         self.graphicsView_cpu = QtWidgets.QGraphicsView(self.cpu)
-        self.graphicsView_cpu.setGeometry(QtCore.QRect(0, 45, 400, 201))
+        self.graphicsView_cpu.setGeometry(QtCore.QRect(20, 45, 350, 201))
         self.graphicsView_cpu.setObjectName("graphicsView_cpu")
         self.scene_cpu=QtWidgets.QGraphicsScene()
-        self.scene_cpu.setSceneRect(15, 0, 350, 195)
+        self.scene_cpu.setSceneRect(15, 0, 315, 195)
         self.scene_cpu.addWidget(self.canvas_cpu)
         self.graphicsView_cpu.setScene(self.scene_cpu)
         self.cpuname = QtWidgets.QLabel(self.cpu)
-        self.cpuname.setGeometry(QtCore.QRect(10, 0, 301, 51))
-        self.cpuname.setStyleSheet("font-size:30px;")
+        self.cpuname.setGeometry(QtCore.QRect(20, 0, 301, 41))
         self.cpuname.setObjectName("cpuname")
         #GPU使用率
         self.gpu = QtWidgets.QFrame(self.homepage)
-        self.gpu.setGeometry(QtCore.QRect(20, 380, 400, 275))
+        self.gpu.setGeometry(QtCore.QRect(20, 365, 400, 260))
         self.gpu.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.gpu.setFrameShadow(QtWidgets.QFrame.Raised)
         self.gpu.setObjectName("gpu")
+        self.gpu.setStyleSheet('''
+            QFrame#gpu {
+                background-color:rgb(239,245,245); 
+                border-radius:30px;             
+            }        
+            QFrame#gpu:hover {
+                background-color:rgb(90,177,201);
+            }
+            QLabel#gpuname{
+                background-color:rgb(239,245,245); 
+                border-radius:30px; 
+                font-size:30px;         
+            }
+        ''')
+        self.gpu.enterEvent = self.gpu_onEnter
+        self.gpu.leaveEvent = self.gpu_onLeave
         self.figure_gpu, self.ax_gpu = plt.subplots()
         self.canvas_gpu = FigureCanvas(self.figure_gpu)
-        self.canvas_gpu.setFixedSize(400, 200)
+        self.canvas_gpu.setFixedSize(350, 200)
         self.gpu_usage_data = [0] * 50  # 初始化 50 筆數據，初始值為 0
         self.graphicsView_gpu = QtWidgets.QGraphicsView(self.gpu)
-        self.graphicsView_gpu.setGeometry(QtCore.QRect(0, 45, 400, 201))
+        self.graphicsView_gpu.setGeometry(QtCore.QRect(25, 40, 350, 201))
         self.graphicsView_gpu.setObjectName("graphicsView_gpu")
         self.scene_gpu=QtWidgets.QGraphicsScene()
-        self.scene_gpu.setSceneRect(15, 0, 350, 195)
+        self.scene_gpu.setSceneRect(15, 0, 315, 195)
         self.scene_gpu.addWidget(self.canvas_gpu)
         self.graphicsView_gpu.setScene(self.scene_gpu)
         self.gpuname = QtWidgets.QLabel(self.gpu)
-        self.gpuname.setGeometry(QtCore.QRect(0, 0, 301, 51))
-        self.gpuname.setStyleSheet("font-size:30px;")
+        self.gpuname.setGeometry(QtCore.QRect(25, 5, 301, 31))
         self.gpuname.setObjectName("gpuname")
         #天氣
         self.weather = QtWidgets.QFrame(self.homepage)
-        self.weather.setGeometry(QtCore.QRect(440, 110, 261, 201))
+        self.weather.setGeometry(QtCore.QRect(440, 90, 261, 201))
         self.weather.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.weather.setFrameShadow(QtWidgets.QFrame.Raised)
         self.weather.setObjectName("weather")
+        self.weather.setStyleSheet('''
+            QFrame#weather {
+                background-color: rgb(239,245,245); 
+                border-radius: 30px;             
+            }        
+            QFrame#weather:hover {
+                background-color: rgb(90, 177, 201);
+            }
+            QLabel {
+                background-color: rgb(239,245,245);
+                color:rgb(83,103,115);
+            }
+            QLabel#temperature {
+                font-size: 45px;
+            }
+            QLabel#status {
+                font-size: 35px;
+            }
+            QComboBox {
+                background-color: rgb(239, 245, 245);
+            }
+            QComboBox::drop-down { 
+                background-color: rgb(239, 245, 245); 
+            }
+        ''')
+        self.weather.enterEvent = self.weather_onEnter
+        self.weather.leaveEvent = self.weather_onLeave
         self.city = QtWidgets.QComboBox(self.weather)
         self.city.setGeometry(QtCore.QRect(20, 20, 101, 22))
         self.city.setObjectName("city")
@@ -238,15 +341,12 @@ class Ui_Widget(object):
         self.township.currentIndexChanged.connect(self.changetext)
         self.temperature = QtWidgets.QLabel(self.weather)
         self.temperature.setGeometry(QtCore.QRect(20, 60, 81, 61))
-        self.temperature.setStyleSheet("background-color:white;")
         self.temperature.setObjectName("temperature")
         self.weatherimage = QtWidgets.QLabel(self.weather)
         self.weatherimage.setGeometry(QtCore.QRect(120, 60, 121, 121))
-        self.weatherimage.setStyleSheet("background-color:white;")
         self.weatherimage.setObjectName("weatherimage")
         self.status = QtWidgets.QLabel(self.weather)
-        self.status.setGeometry(QtCore.QRect(20, 150, 81, 31))
-        self.status.setStyleSheet("background-color:white;")
+        self.status.setGeometry(QtCore.QRect(35, 135, 81, 31))
         self.status.setObjectName("status")
         self.changetext()
         #ChatGpt
@@ -268,31 +368,77 @@ class Ui_Widget(object):
         self.news.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.news.setFrameShadow(QtWidgets.QFrame.Raised)
         self.news.setObjectName("news")
+        self.news.setStyleSheet('''
+            QFrame#news {
+                background-color: rgb(239,245,245); 
+                border-radius: 30px; 
+            }      
+            QFrame#news:hover {
+                background-color: rgb(90, 177, 201);
+            }
+            QListWidget#newslist {
+                border:1px solid #000;
+                background-color:white;
+                border-radius: 10px;                       
+            }  
+            QListWidget#newslist{
+                font-size:18px;                          
+            }                     
+        ''')
         self.newslist = QtWidgets.QListWidget(self.news)
-        self.newslist.setGeometry(QtCore.QRect(0, 0, 531, 271))
+        self.newslist.setGeometry(QtCore.QRect(23, 20, 485, 235))
         self.newslist.setObjectName("newslist")
         self.newslist.clicked.connect(self.open_link)
         #代辦事項
-        self.list = QtWidgets.QListWidget(self.homepage)
-        self.list.setGeometry(QtCore.QRect(440, 320, 261, 331))
+        self.list_frame= QtWidgets.QFrame(self.homepage)
+        self.list_frame.setGeometry(QtCore.QRect(440, 315, 270, 380))
+        self.list_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.list_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.list_frame.setObjectName("list_frame")
+        self.list_frame.enterEvent = self.list_onEnter
+        self.list_frame.leaveEvent = self.list_onLeave
+        self.list_frame.setStyleSheet('''
+            QFrame#list_frame {
+                background-color: rgb(239,245,245); 
+                border-radius: 30px; 
+            }      
+            QFrame#list_frame:hover {
+                background-color: rgb(90, 177, 201);
+            }
+            QListWidget#list {
+                border:1px solid #000;
+                background-color:white;
+                border-radius: 10px;                       
+            }
+            QPushButton#listdel{
+                background-color: rgb(241,247,247); 
+                border:1px solid #000; 
+                border-radius: 10px;     
+                font-size:25px;                                       
+            }
+            QPushButton#listadd{
+                background-color: rgb(241,247,247); 
+                border:1px solid #000; 
+                border-radius: 10px;  
+                font-size:25px;                                 
+            }     
+            QListWidget#list{
+                font-size:25px;                          
+            }                     
+        ''')
+        self.list = QtWidgets.QListWidget(self.list_frame)
+        self.list.setGeometry(QtCore.QRect(20, 20, 230, 310))
         self.list.setObjectName("list")
-        self.listdel = QtWidgets.QPushButton(self.homepage)
-        self.listdel.setGeometry(QtCore.QRect(470, 670, 93, 31))
+        self.listdel = QtWidgets.QPushButton(self.list_frame)
+        self.listdel.setGeometry(QtCore.QRect(30, 340, 93, 31))
         self.listdel.setObjectName("listdel")
         self.listdel.clicked.connect(self.list_del_fn)
-        self.listadd = QtWidgets.QPushButton(self.homepage)
-        self.listadd.setGeometry(QtCore.QRect(580, 670, 93, 31))
+        self.listadd = QtWidgets.QPushButton(self.list_frame)
+        self.listadd.setGeometry(QtCore.QRect(145, 340, 93, 31))
         self.listadd.setObjectName("listadd")
         self.listadd.clicked.connect(self.list_add_fn)
-        self.list.setStyleSheet('''
-            QListWidget {
-                border:1px solid #000;
-            }
-            QListWidget:focus {
-                border:3px solid #09c;
-            }
-        ''')
-        
+
+
         self.homepage.raise_()
         self.loginpage.raise_()
         self.retranslateUi(Widget)
@@ -302,10 +448,10 @@ class Ui_Widget(object):
         result=self.city_weather.query(firsttext,self.township.currentText())
         temperature_value, weather_description = result
         _translate = QtCore.QCoreApplication.translate
-        Widget.setWindowTitle(_translate("Widget", "Widget"))
-        self.label.setText(_translate("Widget", "登入"))
-        self.label_2.setText(_translate("Widget", "新增用戶"))
-        self.label_3.setText(_translate("Widget", "首頁"))
+        Widget.setWindowTitle(_translate("Widget", "魔鏡 Windows管家"))
+        self.user_text.setText(_translate("Widget", "登入"))
+        self.useradd_text.setText(_translate("Widget", "新增用戶"))
+        self.home_text.setText(_translate("Widget", "首頁"))
         self.label_4.setText(_translate("Widget", "請輸入你用戶名稱:"))
         self.username.setText(_translate("Widget", "使用者名稱"))
         self.cpuname.setText(_translate("Widget", "CPU使用率(%):"))
@@ -353,7 +499,7 @@ class Ui_Widget(object):
             self.err()
         else :
             self.name=ID
-            self.username.setText(f"歡迎{ID}進入")
+            self.username.setText("歡迎%s進入" %ID)
             self.loginpage.setGeometry(QtCore.QRect(0, 1000, 1272, 721))
             self.homepage.setGeometry(QtCore.QRect(0, 0, 1272, 721))
             self.get_data_from_json()
@@ -383,7 +529,7 @@ class Ui_Widget(object):
             print("進入主畫面") #liu
     #顯示彈窗
     def err(self):
-        mbox = QtWidgets.QMessageBox(self.loginpage)
+        mbox = QtWidgets.QMessageBox(Widget)
         mbox.setText("請重新操作")
         mbox.setIcon(2)
         mbox.exec()
@@ -429,32 +575,26 @@ class Ui_Widget(object):
             if temperature_value=="-99":
                 self.temperature.setText("數值不正常")
             else :
-                self.temperature.setText(temperature_value)
-            
+                self.temperature.setText(temperature_value) 
             if weather_description=="-99":
                 weather_description=="多雲"
                 self.status.setText("多雲")
             else :
-                self.status.setText(weather_description)
-            print(firsttext,self.township.currentText())
-            print("temperature Value:", temperature_value)
-            print("Weather Description:", weather_description)  
-            if weather_description=="多雲":
-                self.weatherimage.setStyleSheet(
-                    "background-image:url(\"image/weather/多雲.png\")"
-            )
-            if weather_description=="陰":
-                self.weatherimage.setStyleSheet(
-                    "background-image:url(\"image/weather/陰.png\")"
-            )
-            if weather_description=="雨":
-                self.weatherimage.setStyleSheet(
-                    "background-image:url(\"image/weather/雨.png\")"
-            )
-            if weather_description=="晴":
-                self.weatherimage.setStyleSheet(
-                    "background-image:url(\"image/weather/晴.png\")"
-            )
+                self.status.setText(weather_description)  
+                # 使用QPixmap設定圖片的樣式
+                if weather_description == "多雲":
+                    pixmap = QtGui.QPixmap("image/weather/多雲.png")
+                    self.weatherimage.setPixmap(pixmap)
+                elif weather_description == "陰":
+                    pixmap = QtGui.QPixmap("image/weather/陰.png")
+                    self.weatherimage.setPixmap(pixmap)
+                elif weather_description == "雨":
+                    pixmap = QtGui.QPixmap("image/weather/雨.png")
+                    self.weatherimage.setPixmap(pixmap)
+                elif weather_description == "晴":
+                    pixmap = QtGui.QPixmap("image/weather/晴.png")
+                    self.weatherimage.setPixmap(pixmap)
+
     # slider 改變value
     def slider(self,value) :
         set_volume(value/100)
@@ -497,7 +637,7 @@ class Ui_Widget(object):
             print("JSON 解碼錯誤")
     #新增新聞
     def add_news(self):
-        for i in range(11):
+        for i in range(20):
             self.newslist.addItem(self.line_news.news[i][0])
     #打開連結
     def open_link(self):
@@ -510,6 +650,89 @@ class Ui_Widget(object):
             errbox.setText("無法打開超連結")
             errbox.setIcon(2)
             errbox.exec()
+
+    def weather_onEnter(self, event):
+            #將QFrame內的所有子元件設定為hover狀態
+            for child in self.weather.children():
+                child.setStyleSheet('''
+                    QLabel{
+                        background-color:rgb(90,177,201);          
+                    }
+                ''')
+            self.changetext    
+    def weather_onLeave(self, event):
+        #將QFrame內的所有子元件設定為正常狀態
+        for child in self.weather.children():
+            child.setStyleSheet('''
+                QLabel{
+                    background-color:rgb(239,245,245);          
+                }
+            ''')
+        self.changetext
+    def gpu_onEnter(self, event):
+            for child in self.gpu.children():
+                child.setStyleSheet('''
+                    QLabel{
+                        background-color:rgb(90,177,201);          
+                    }
+                ''')
+    def gpu_onLeave(self, event):
+        for child in self.gpu.children():
+            child.setStyleSheet('''
+                QLabel{
+                    background-color:rgb(239,245,245);          
+                }
+            ''')
+    def cpu_onEnter(self, event):
+        for child in self.cpu.children():
+            child.setStyleSheet('''
+                QLabel{
+                    background-color:rgb(90,177,201);          
+                }
+            ''')
+    def cpu_onLeave(self, event):
+        for child in self.cpu.children():
+            child.setStyleSheet('''
+                QLabel{
+                    background-color:rgb(239,245,245);          
+                }
+            ''')
+    def control_onEnter(self, event):
+        for child in self.control.children():
+            child.setStyleSheet('''
+                QLabel{
+                    background-color:rgb(90,177,201);          
+                }
+                QSlider{
+                    background-color:rgb(90,177,201);                
+                }
+            ''')
+    def control_onLeave(self, event):
+        for child in self.control.children():
+            child.setStyleSheet('''
+                QLabel{
+                    background-color:rgb(239,245,245);          
+                }
+                QSlider{
+                    background-color:rgb(239,245,245);                
+                }
+            ''')
+    def list_onEnter(self, event):
+        for child in self.list_frame.children():
+            child.setStyleSheet('''
+                QPushButton{
+                    background-color:rgb(90,177,201);          
+                }
+            ''')
+    def list_onLeave(self, event):
+        for child in self.list_frame.children():
+            child.setStyleSheet('''
+                QPushButton{
+                    background-color:rgb(239,245,245);          
+                }
+            ''')
+
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
