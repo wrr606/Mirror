@@ -222,7 +222,7 @@ class Ui_Widget(object):
         self.volumeslider.setMinimum(0)
         self.volumeslider.setMaximum(100)
         self.volumeslider.setValue(get_volume())
-        self.volume_text.setText(f"{get_volume()}")
+        self.volume_text.setText(f"{get_volume()}%")
         self.volumeslider.valueChanged.connect(self.slider)
         #CPU使用率
         self.cpu = QtWidgets.QFrame(self.homepage)
@@ -598,7 +598,7 @@ class Ui_Widget(object):
     # slider 改變value
     def slider(self,value) :
         set_volume(value/100)
-        self.volume_text.setText(f"{value}")
+        self.volume_text.setText(f"{value}%")
         if value==0:
             self.volume.setStyleSheet(
             "background-image:url(\"image/volume-slash.png\")"
