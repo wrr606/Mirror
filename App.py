@@ -385,7 +385,7 @@ class Ui_Widget(object):
         self.chatgpt_input = QtWidgets.QTextEdit(self.chatgpt)
         self.chatgpt_input.setGeometry(QtCore.QRect(20, 20, 410, 121))
         self.chatgpt_input.setObjectName("chatgpt_input")
-        self.gpt = QtWidgets.QListWidget(self.chatgpt)
+        self.gpt = QtWidgets.QTextBrowser(self.chatgpt)
         self.gpt.setGeometry(QtCore.QRect(20, 160, 490, 210))
         self.gpt.setStyleSheet("background-color:white;")
         self.gpt.setObjectName("gpt")
@@ -775,8 +775,12 @@ class Ui_Widget(object):
         else:
             print(text)
             ans=chatgpt(self.chatgpt_input.toPlainText())
+            if ans==None:
+                self.gpt.clear()
+                self.gpt.setPlainText("請在環境變數OPENAI_API_KEY中新增金鑰")
+                return
             self.gpt.clear()
-            self.gpt.addItem(ans)
+            self.gpt.setPlainText(ans)
 
 
 if __name__ == "__main__":
