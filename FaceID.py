@@ -1,7 +1,6 @@
 import cv2
 import os,glob
 from numpy import asarray
-from time import sleep,time
 
 #傳入名字，打開攝影機，訓練自己的臉部資料(200 張)，正常結束後會回傳 True，撞到名字會回傳 False
 def sign_up(name:str,frame)->bool:

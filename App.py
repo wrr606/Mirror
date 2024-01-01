@@ -1,15 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtCore import QThread, pyqtSignal
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtGui import QImage, QPixmap, QDesktopServices
+from PyQt5.QtCore import QThread, pyqtSignal, QUrl
 import sys, threading, json
 from time import sleep
-from FaceID import sign_up,identify
 import cv2
 import psutil, GPUtil
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+#由其他檔案 import
+from FaceID import sign_up,identify
 from Volume import set_volume,get_volume
 from Crawler import News,Weather
 from Memorandum import add_district,remove_value
@@ -774,7 +773,7 @@ class Ui_Widget(object):
             mbox.exec()
         else:
             print(text)
-            ans=chatgpt(self.chatgpt_input.toPlainText())
+            ans=chatgpt(text)
             if ans==None:
                 self.gpt.clear()
                 self.gpt.setPlainText("請在環境變數OPENAI_API_KEY中新增金鑰")
