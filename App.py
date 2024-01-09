@@ -36,6 +36,16 @@ class GPUThread(QThread):
             self.gpu_updated.emit(gpu_usage)
             self.sleep(1)
 
+class ChatGPTThread(QThread):
+    gpt_updated = pyqtSignal(str)
+    def run(self):
+        global txt
+        while True:
+            if txt!="":
+                self.gpt_updated.emit(chatgpt(txt))
+                txt=""
+            self.sleep(1)
+
 class Ui_Widget(object):
     def __init__(self):
         self.video_thread = None
@@ -47,6 +57,9 @@ class Ui_Widget(object):
         self.gpu_thread = GPUThread()
         self.gpu_thread.gpu_updated.connect(self.update_gpu_usage)
         self.gpu_thread.start()
+        self.gpt_thread = ChatGPTThread()
+        self.gpt_thread.gpt_updated.connect(self.chatgpt_print)
+        self.gpt_thread.start()
         self.city_weather=Weather()
         self.line_news=News()
         self.frame=None
@@ -772,17 +785,21 @@ class Ui_Widget(object):
             mbox.setIcon(2)
             mbox.exec()
         else:
-            print(text)
-            ans=chatgpt(text)
-            if ans==None:
-                self.gpt.clear()
-                self.gpt.setPlainText("請在環境變數OPENAI_API_KEY中新增金鑰")
-                return
+            global txt
+            txt=text
+    
+    def chatgpt_print(self,ans):
+        if ans==None:
             self.gpt.clear()
-            self.gpt.setPlainText(ans)
+            self.gpt.setPlainText("請在環境變數OPENAI_API_KEY中新增金鑰")
+            return
+        self.gpt.clear()
+        self.gpt.setPlainText(ans)
 
 
 if __name__ == "__main__":
+    global txt
+    txt=""
     app = QtWidgets.QApplication(sys.argv)
     Widget = QtWidgets.QWidget()
     ui = Ui_Widget()
