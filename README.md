@@ -58,3 +58,4 @@ pip install GPUtil
 ```
 pip install PyQt5
 ```
+需要再環境變數中設置一個名為 OPENAI_API_KEY 變數，裡面要放置自己的 OpenAI 金鑰
