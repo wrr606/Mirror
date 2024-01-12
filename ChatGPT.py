@@ -1,5 +1,16 @@
 import os
 import openai
+from gtts import gTTS
+from pygame import mixer
+import tempfile
+
+def __talk(sentence,lang):
+    with tempfile.NamedTemporaryFile(delete=True) as f:
+        tts=gTTS(text=sentence, lang=lang)
+        tts.save(f'{f.name}.mp3')
+        mixer.init()
+        mixer.music.load(f'{f.name}.mp3')
+        mixer.music.play(loops=0)
 
 def chatgpt(text:str)->str:
     if os.getenv("OPENAI_API_KEY")==None:
@@ -13,6 +24,7 @@ def chatgpt(text:str)->str:
                 ]
     )
     print(completion["choices"][0]["message"]["content"])
+    __talk(completion["choices"][0]["message"]["content"], 'zh-TW')
     return completion["choices"][0]["message"]["content"]
 
 """
