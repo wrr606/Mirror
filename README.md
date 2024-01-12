@@ -16,6 +16,7 @@
 ### 展示：
 登入介面
 ![image](https://github.com/wrr606/Mirror/blob/main/display/1.png)
+
 主畫面
 ![image](https://github.com/wrr606/Mirror/blob/main/display/2.png)
 
@@ -23,17 +24,37 @@
 以下是需要安裝的套件
 ```
 pip install gTTS
+```
+```
 pip install pygame
+```
+```
 pip install pycaw
+```
+```
 pip install openai
+```
+```
 pip install numpy
+```
+```
 pip install opencv-contrib-python
+```
+```
 pip install requests
+```
+```
 pip install beautifulsoup4
+```
+```
 pip install matplotlib
+```
+```
 pip install psutil
+```
+```
 pip install GPUtil
 ```
-`
+```
 pip install PyQt5
-`
+```
