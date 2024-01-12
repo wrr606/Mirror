@@ -2,10 +2,10 @@ import os
 import openai
 from gtts import gTTS
 from pygame import mixer
-import tempfile
+from tempfile import NamedTemporaryFile
 
 def __talk(sentence,lang):
-    with tempfile.NamedTemporaryFile(delete=True) as f:
+    with NamedTemporaryFile(delete=True) as f:
         tts=gTTS(text=sentence, lang=lang)
         tts.save(f'{f.name}.mp3')
         mixer.init()
